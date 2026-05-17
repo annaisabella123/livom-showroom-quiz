@@ -1,0 +1,2526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livom · 10% Showroom Discount — Knowledge Check</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1A1612;--ink2:#252118;--gold:#C9A85C;--gold2:#DDB96A;--gold3:rgba(201,168,92,0.10);
+  --teal:#1F6B75;--teal3:rgba(31,107,117,0.10);--green:#2E7D52;--green3:rgba(46,125,82,0.12);
+  --rust:#B5451B;--rust3:rgba(181,69,27,0.12);--blue:#2B5F8E;--blue3:rgba(43,95,142,0.10);
+  --amber:#B07A20;--purple:#5B4B8A;--cream:#F5F2ED;--white:#FFF;
+  --border:#E2DDD6;--mid:#8A8278;--slate:#5A554F;--r:8px;--r2:14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;}
+.screen{display:none;flex-direction:column;min-height:100vh;animation:fadeUp .35s ease;}
+.screen.active{display:flex;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ LOGIN ══ */
+#s-login{background:var(--ink);align-items:center;justify-content:center;padding:40px 20px;}
+.login-box{
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);
+  border-radius:20px;padding:52px 48px;max-width:440px;width:100%;
+}
+.login-logo{font-size:10px;font-weight:700;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:28px;}
+.login-title{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:700;color:#fff;line-height:1.15;margin-bottom:8px;}
+.login-sub{font-size:13px;color:rgba(255,255,255,.45);margin-bottom:32px;line-height:1.6;}
+.lang-row{display:flex;gap:8px;margin-bottom:24px;}
+.lang-btn{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.05);color:rgba(255,255,255,.5);font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.lang-btn.sel{border-color:var(--gold);background:var(--gold3);color:var(--gold2);}
+.form-field{margin-bottom:14px;}
+.form-field input{width:100%;padding:13px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.07);color:#fff;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s;}
+.form-field input::placeholder{color:rgba(255,255,255,.3);}
+.form-field input:focus{border-color:var(--gold);}
+.form-field input.err{border-color:var(--rust);}
+.login-btn{width:100%;padding:15px;border-radius:10px;border:none;background:var(--gold);color:var(--ink);font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s,transform .15s;margin-top:6px;}
+.login-btn:hover{opacity:.9;transform:translateY(-1px);}
+.login-hint{font-size:11px;color:rgba(255,255,255,.2);margin-top:14px;text-align:center;line-height:1.5;}
+
+/* ══ QUIZ ══ */
+#s-quiz{background:var(--cream);}
+.quiz-top{
+  background:var(--ink);padding:18px 40px;display:flex;align-items:center;
+  justify-content:space-between;position:sticky;top:0;z-index:50;flex-shrink:0;
+}
+.qt-left{display:flex;flex-direction:column;gap:2px;}
+.qt-logo{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+.qt-user{font-size:12px;color:rgba(255,255,255,.45);}
+.qt-prog{display:flex;align-items:center;gap:12px;}
+.prog-track{width:180px;height:4px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;background:var(--gold);border-radius:2px;transition:width .4s ease;}
+.qt-count{font-size:12px;color:rgba(255,255,255,.4);white-space:nowrap;}
+
+.quiz-main{flex:1;overflow-y:auto;padding:40px 40px 60px;max-width:800px;margin:0 auto;width:100%;}
+
+/* Section header */
+.sec-header{
+  background:linear-gradient(135deg,var(--ink) 0%,#2a231a 100%);
+  border-radius:var(--r2);padding:24px 28px;margin-bottom:28px;
+  display:flex;align-items:center;gap:18px;
+}
+.sec-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:rgba(201,168,92,.25);line-height:1;flex-shrink:0;}
+.sec-info .sec-tag{font-size:10px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.sec-info .sec-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#fff;}
+
+/* Question card */
+.q-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:32px;margin-bottom:20px;transition:box-shadow .2s;}
+.q-type-badge{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:14px;}
+.badge-mc{background:var(--blue3);color:var(--blue);}
+.badge-tf{background:var(--teal3);color:var(--teal);}
+.badge-open{background:var(--gold3);color:var(--amber);}
+.badge-order{background:rgba(91,75,138,.12);color:var(--purple);}
+.badge-scenario{background:var(--rust3);color:var(--rust);}
+.badge-match{background:rgba(46,125,82,.10);color:var(--green);}
+.q-text{font-size:17px;font-weight:500;color:var(--ink);line-height:1.55;margin-bottom:6px;}
+.q-sub{font-size:13px;color:var(--mid);line-height:1.55;margin-bottom:22px;}
+
+/* Scenario box */
+.scenario{background:var(--cream);border-left:3px solid var(--gold);padding:14px 18px;border-radius:0 var(--r) var(--r) 0;margin-bottom:22px;font-size:13px;color:var(--slate);line-height:1.65;font-style:italic;}
+
+/* MC Options */
+.opts{display:flex;flex-direction:column;gap:10px;}
+.opt{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border-radius:var(--r);border:1.5px solid var(--border);cursor:pointer;transition:all .15s;background:var(--white);text-align:left;width:100%;font-family:'DM Sans',sans-serif;}
+.opt:hover:not(.locked){border-color:var(--gold);background:var(--gold3);}
+.opt.locked{cursor:default;}
+.opt-circle{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:var(--mid);flex-shrink:0;margin-top:1px;transition:all .15s;}
+.opt-text{font-size:14px;color:var(--slate);line-height:1.5;}
+.opt.correct{border-color:var(--green);background:var(--green3);}
+.opt.correct .opt-circle{background:var(--green);border-color:var(--green);color:#fff;}
+.opt.correct .opt-text{color:var(--ink);font-weight:500;}
+.opt.wrong{border-color:var(--rust);background:var(--rust3);}
+.opt.wrong .opt-circle{background:var(--rust);border-color:var(--rust);color:#fff;}
+.opt.wrong .opt-text{color:var(--rust);}
+.opt.dim{opacity:.35;}
+
+/* True/False */
+.tf-row{display:flex;gap:12px;}
+.tf-btn{flex:1;padding:20px;border-radius:var(--r2);border:2px solid var(--border);background:var(--white);font-size:16px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .15s;color:var(--slate);}
+.tf-btn:hover:not(.locked){border-color:var(--gold);color:var(--gold);background:var(--gold3);}
+.tf-btn.tf-correct{border-color:var(--green);background:var(--green3);color:var(--green);}
+.tf-btn.tf-wrong{border-color:var(--rust);background:var(--rust3);color:var(--rust);}
+.tf-btn.locked{cursor:default;}
+
+/* Open question */
+.open-area{width:100%;min-height:110px;padding:16px;border-radius:var(--r2);border:1.5px solid var(--border);font-size:14px;color:var(--ink);font-family:'DM Sans',sans-serif;resize:vertical;outline:none;transition:border-color .2s;line-height:1.6;}
+.open-area:focus{border-color:var(--gold);}
+.open-hints{margin-top:10px;font-size:12px;color:var(--mid);line-height:1.55;}
+.open-hints li{margin-left:18px;margin-bottom:3px;}
+.open-submit{margin-top:12px;padding:11px 22px;border-radius:var(--r);border:none;background:var(--ink);color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s;}
+.open-submit:hover{opacity:.85;}
+.open-submitted{padding:14px 18px;background:var(--green3);border:1px solid rgba(46,125,82,.25);border-radius:var(--r);color:var(--green);font-size:13px;display:none;}
+
+/* Ordering */
+.sort-list{display:flex;flex-direction:column;gap:8px;}
+.sort-item{
+  display:flex;align-items:center;gap:12px;padding:14px 18px;
+  background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);
+  cursor:grab;user-select:none;transition:all .15s;
+}
+.sort-item.dragging{opacity:.5;cursor:grabbing;}
+.sort-item.over{border-color:var(--gold);background:var(--gold3);}
+.sort-handle{font-size:18px;color:var(--mid);flex-shrink:0;}
+.sort-num{width:24px;height:24px;border-radius:50%;background:var(--cream);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--mid);flex-shrink:0;}
+.sort-text{font-size:14px;color:var(--slate);}
+.sort-submit{margin-top:14px;padding:11px 22px;border-radius:var(--r);border:none;background:var(--ink);color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;}
+.sort-result{padding:14px;border-radius:var(--r);font-size:13px;margin-top:12px;display:none;}
+.sort-result.correct-r{background:var(--green3);color:var(--green);}
+.sort-result.wrong-r{background:var(--rust3);color:var(--slate);}
+
+/* Feedback */
+.feedback{margin-top:16px;padding:14px 18px;border-radius:var(--r);font-size:13px;line-height:1.65;display:none;}
+.feedback.show{display:block;animation:fadeUp .2s ease;}
+.feedback.fok{background:var(--green3);border:1px solid rgba(46,125,82,.25);color:var(--green);}
+.feedback.fbad{background:var(--rust3);border:1px solid rgba(181,69,27,.25);color:var(--slate);}
+.feedback strong{color:var(--ink);}
+.feedback em{color:var(--teal);}
+
+/* Nav */
+.quiz-foot{padding:0 40px 48px;max-width:800px;margin:0 auto;width:100%;display:flex;justify-content:flex-end;}
+.next-btn{padding:14px 30px;border-radius:10px;border:none;background:var(--gold);color:var(--ink);font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s,transform .15s;display:flex;align-items:center;gap:8px;}
+.next-btn:hover{opacity:.9;transform:translateY(-1px);}
+.next-btn:disabled{opacity:.3;cursor:not-allowed;transform:none;}
+
+
+/* Multi-select */
+.opt.multi-sel { border-color: var(--teal); background: var(--teal3); }
+.opt.multi-sel .opt-circle { background: var(--teal); border-color: var(--teal); color: #fff; }
+.multi-submit { margin-top:14px;padding:11px 22px;border-radius:var(--r);border:none;background:var(--ink);color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s; }
+.multi-submit:hover { opacity:.85; }
+/* Match */
+.match-row { display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--border); }
+.match-stmt { flex:1;font-size:14px;color:var(--slate);line-height:1.5; }
+.match-sel { padding:8px 12px;border-radius:var(--r);border:1.5px solid var(--border);background:var(--white);font-size:13px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;cursor:pointer;transition:border-color .2s; }
+.match-sel:focus { border-color:var(--gold); }
+.match-sel.correct-m { border-color:var(--green);background:var(--green3); }
+.match-sel.wrong-m   { border-color:var(--rust);background:var(--rust3); }
+.match-submit { margin-top:14px;padding:11px 22px;border-radius:var(--r);border:none;background:var(--ink);color:var(--gold);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif; }
+
+/* Participant question table */
+.pq-table{width:100%;border-collapse:collapse;}
+.pq-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);padding:10px 14px;border-bottom:2px solid var(--border);background:var(--cream);}
+.pq-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+.pq-table tr:last-child td{border-bottom:none;}
+.pq-num{width:32px;font-size:11px;font-weight:700;color:var(--mid);}
+.pq-type{width:50px;}
+.pq-q{font-size:12px;color:var(--mid);max-width:260px;line-height:1.4;}
+.pq-a{font-size:13px;max-width:300px;line-height:1.45;}
+.pq-r{width:90px;text-align:center;}
+.pc-score-dot{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.pc-header-left{display:flex;align-items:center;gap:14px;}
+.pc-header-right{display:flex;align-items:center;gap:12px;}
+
+/* Question breakdown cards */
+.qb-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:10px;overflow:hidden;}
+.qb-card-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;cursor:pointer;transition:background .15s;}
+.qb-card-header:hover{background:var(--cream);}
+.qb-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0;}
+.qb-right{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.qb-num{font-size:11px;font-weight:700;color:var(--mid);width:28px;flex-shrink:0;}
+.qb-type-badge{font-size:9px;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--cream);border:1px solid var(--border);color:var(--mid);flex-shrink:0;letter-spacing:0.5px;}
+.qb-q{font-size:13px;color:var(--slate);line-height:1.4;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:400px;}
+.qb-pct{font-size:13px;font-weight:700;flex-shrink:0;min-width:36px;text-align:right;}
+.qb-count{font-size:11px;color:var(--mid);flex-shrink:0;white-space:nowrap;}
+.qb-toggle{font-size:11px;color:var(--mid);transition:transform .2s;flex-shrink:0;}
+.qb-bar-wrap{width:100px;height:7px;background:var(--border);border-radius:4px;overflow:hidden;flex-shrink:0;}
+.qb-bar{height:100%;border-radius:4px;}
+.qb-detail{display:none;padding:0 18px 16px;border-top:1px solid var(--border);}
+.qb-detail.open{display:block;}
+
+/* Export prompt */
+.export-prompt{
+  background:linear-gradient(135deg,var(--ink) 0%,#2a231a 100%);
+  border-radius:var(--r2);padding:20px 24px;
+  display:flex;align-items:center;gap:16px;margin-bottom:8px;
+}
+.ep-icon{font-size:28px;flex-shrink:0;}
+.ep-content{flex:1;}
+.ep-title{font-size:15px;font-weight:700;color:white;margin-bottom:3px;}
+.ep-sub{font-size:12px;color:rgba(255,255,255,0.5);}
+.ep-btn{
+  padding:12px 22px;border-radius:10px;border:none;
+  background:var(--gold);color:var(--ink);font-size:13px;font-weight:700;
+  cursor:pointer;font-family:'DM Sans',sans-serif;white-space:nowrap;
+  transition:opacity .2s;flex-shrink:0;
+}
+.ep-btn:hover{opacity:.88;}
+/* ══ RESULTS ══ */
+#s-results{background:var(--cream);}
+.res-hero{background:var(--ink);padding:56px 40px 48px;text-align:center;}
+.res-tag{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+.res-user{font-size:13px;color:rgba(255,255,255,.4);margin-bottom:24px;}
+.score-circle{width:120px;height:120px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 22px;border:4px solid rgba(255,255,255,.08);}
+.score-circle.pass{border-color:var(--green);box-shadow:0 0 32px rgba(46,125,82,.3);}
+.score-circle.ok{border-color:var(--gold);box-shadow:0 0 32px rgba(201,168,92,.2);}
+.score-circle.fail{border-color:var(--rust);}
+.score-pct{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:700;color:#fff;line-height:1;}
+.score-lbl{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px;}
+.res-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:#fff;margin-bottom:8px;}
+.res-sub{font-size:13px;color:rgba(255,255,255,.45);max-width:400px;margin:0 auto;line-height:1.65;}
+.res-body{padding:40px;max-width:800px;margin:0 auto;width:100%;}
+.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:28px;}
+.sum-item{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:20px;text-align:center;transition:box-shadow .15s;}
+.sum-item:hover{box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.sum-n{font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:700;line-height:1;margin-bottom:6px;}
+.sum-l{font-size:11px;color:var(--mid);text-transform:uppercase;letter-spacing:1px;}
+.review-list{display:flex;flex-direction:column;gap:10px;margin-bottom:28px;}
+.rev-row{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--border);border-radius:var(--r);padding:16px 18px;display:flex;align-items:flex-start;gap:12px;transition:box-shadow .15s;}
+.rev-row:hover{box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.rev-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.rev-q{flex:1;line-height:1.5;}
+.rev-badge{font-size:10px;font-weight:700;padding:4px 12px;border-radius:10px;flex-shrink:0;white-space:nowrap;align-self:flex-start;margin-top:2px;}
+.rev-badge.ok{background:var(--green3);color:var(--green);}
+.rev-badge.bad{background:var(--rust3);color:var(--rust);}
+.rev-badge.open-lbl{background:var(--gold3);color:var(--amber);}
+.res-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+.res-btn{padding:13px 22px;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;border:none;}
+.res-btn.gold{background:var(--gold);color:var(--ink);}
+.res-btn.ghost{background:transparent;border:1.5px solid var(--border);color:var(--slate);}
+.res-btn.ghost:hover{border-color:var(--ink);color:var(--ink);}
+#export-box{display:none;background:var(--ink);color:rgba(255,255,255,.7);border-radius:var(--r2);padding:24px;font-family:monospace;font-size:12px;white-space:pre;overflow-x:auto;line-height:1.6;margin-top:12px;}
+
+/* ══ ADMIN ══ */
+#s-admin{background:var(--cream);}
+.admin-top{background:var(--ink);padding:20px 40px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.at-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:#fff;}
+.at-tag{font-size:10px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.at-logout{padding:8px 16px;border-radius:8px;border:1px solid rgba(255,255,255,.15);background:transparent;color:rgba(255,255,255,.5);font-size:12px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.at-logout:hover{border-color:var(--gold);color:var(--gold);}
+.admin-body{flex:1;overflow-y:auto;padding:28px 40px;max-width:1000px;margin:0 auto;width:100%;}
+
+/* Stats */
+.admin-stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;}
+.astat{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:18px 16px;text-align:center;}
+.astat-n{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:700;line-height:1;margin-bottom:4px;}
+.astat-l{font-size:10px;color:var(--mid);text-transform:uppercase;letter-spacing:1px;}
+.section-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:14px;}
+
+/* Tabs */
+.admin-tabs{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:24px;}
+.admin-tab{padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;border:none;background:transparent;color:var(--mid);border-bottom:2px solid transparent;margin-bottom:-2px;font-family:'DM Sans',sans-serif;transition:all .15s;}
+.admin-tab.active{color:var(--ink);border-bottom-color:var(--gold);}
+.admin-tab:hover:not(.active){color:var(--ink);}
+.tab-panel{display:none;}
+.tab-panel.active{display:block;}
+
+/* Controls bar */
+.admin-bar{background:var(--cream);padding:12px 16px;border-radius:var(--r);margin-bottom:20px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;}
+.admin-bar select,.admin-bar input{padding:8px 12px;border-radius:var(--r);border:1px solid var(--border);font-family:'DM Sans',sans-serif;font-size:13px;outline:none;background:var(--white);}
+.admin-export-btn{padding:9px 16px;border-radius:var(--r);border:none;background:var(--gold);color:var(--ink);font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:opacity .2s;}
+.admin-export-btn:hover{opacity:.85;}
+.admin-export-btn.ghost{background:transparent;border:1.5px solid var(--border);color:var(--slate);}
+.admin-export-btn.ghost:hover{border-color:var(--ink);color:var(--ink);}
+
+/* Ranking */
+.ranking-table{width:100%;border-collapse:collapse;}
+.ranking-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--mid);padding:8px 12px;border-bottom:2px solid var(--border);}
+.ranking-table td{padding:12px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle;}
+.ranking-table tr:hover td{background:var(--cream);}
+.rank-pos{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--mid);width:40px;}
+.rank-pos.gold-r{color:#C9A85C;}
+.rank-pos.silver-r{color:#9BA0A6;}
+.rank-pos.bronze-r{color:#B07A20;}
+.rank-name{font-weight:600;color:var(--ink);}
+.rank-loc{font-size:11px;color:var(--mid);margin-top:2px;}
+.rank-bar-wrap{width:120px;height:6px;background:var(--border);border-radius:3px;overflow:hidden;display:inline-block;vertical-align:middle;margin-right:8px;}
+.rank-bar{height:100%;border-radius:3px;}
+.rank-pct{font-weight:700;}
+.rank-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;}
+.rank-badge.pass{background:var(--green3);color:var(--green);}
+.rank-badge.ok{background:var(--gold3);color:var(--amber);}
+.rank-badge.fail{background:var(--rust3);color:var(--rust);}
+
+/* Participant cards — redesigned */
+.participant-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r2);margin-bottom:14px;overflow:hidden;}
+.pc-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;cursor:pointer;transition:background .15s;}
+.pc-header:hover{background:var(--cream);}
+.pc-header-left{display:flex;align-items:center;gap:14px;}
+.pc-rank-dot{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
+.pc-name{font-size:14px;font-weight:600;color:var(--ink);}
+.pc-meta{font-size:11px;color:var(--mid);margin-top:2px;}
+.pc-header-right{display:flex;align-items:center;gap:12px;}
+.pc-score-badge{padding:5px 12px;border-radius:10px;font-size:13px;font-weight:700;}
+.pc-score-badge.pass{background:var(--green3);color:var(--green);}
+.pc-score-badge.ok{background:var(--gold3);color:var(--amber);}
+.pc-score-badge.fail{background:var(--rust3);color:var(--rust);}
+.pc-toggle{font-size:12px;color:var(--mid);transition:transform .2s;}
+.pc-body{display:none;border-top:1px solid var(--border);}
+.pc-body.open{display:block;}
+
+/* Answer detail rows inside card */
+.pc-q-table{width:100%;border-collapse:collapse;}
+.pc-q-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);padding:10px 16px;border-bottom:1px solid var(--border);background:var(--cream);}
+.pc-q-table td{padding:10px 16px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:top;}
+.pc-q-table tr:last-child td{border-bottom:none;}
+.pc-q-num{width:36px;font-weight:700;color:var(--mid);}
+.pc-q-text{color:var(--slate);max-width:320px;line-height:1.4;}
+.pc-q-answer{color:var(--ink);font-style:italic;line-height:1.4;}
+.pc-q-result{width:80px;text-align:center;}
+.res-icon{font-size:14px;}
+
+/* Open answers section */
+.pc-open-section{padding:16px 20px;background:rgba(201,168,92,0.04);border-top:1px solid var(--border);}
+.po-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--mid);margin-bottom:12px;}
+.po-item{margin-bottom:14px;padding:12px 16px;background:var(--white);border-radius:var(--r);border-left:3px solid var(--gold);}
+.po-q{font-size:11px;color:var(--mid);margin-bottom:5px;font-weight:600;}
+.po-a{font-size:13px;color:var(--ink);line-height:1.55;font-style:italic;}
+
+/* Question breakdown */
+.q-breakdown{margin-top:8px;}
+.qb-row{display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--border);}
+.qb-num{width:28px;font-size:11px;font-weight:700;color:var(--mid);flex-shrink:0;}
+.qb-q{flex:1;font-size:12px;color:var(--slate);}
+.qb-bar-wrap{width:120px;height:7px;background:var(--border);border-radius:4px;overflow:hidden;flex-shrink:0;}
+.qb-bar{height:100%;border-radius:4px;transition:width .5s ease;}
+.qb-pct{font-size:12px;font-weight:700;flex-shrink:0;width:38px;text-align:right;}
+.qb-count{font-size:11px;color:var(--mid);flex-shrink:0;width:50px;text-align:right;}
+
+.empty-state{text-align:center;padding:48px;color:var(--mid);font-size:14px;}
+
+@media(max-width:600px){
+  .quiz-top,.quiz-main,.quiz-foot,.res-body,.admin-body,.admin-top,.res-hero{padding-left:20px;padding-right:20px;}
+  .prog-track{width:100px;}
+  .summary-grid,.admin-stats{grid-template-columns:repeat(2,1fr);}
+  .login-box{padding:36px 24px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ SCREEN: LOGIN ══ -->
+<div id="s-login" class="screen active">
+  <div class="login-box">
+    <div class="login-logo">Livom · Sales Training</div>
+    <div class="login-title" id="lt">10% Showroom<br>Knowledge Check</div>
+    <div class="login-sub" id="ls">16 questions — scenarios, multiple choice, open reflection and real situations.</div>
+    <div class="lang-row">
+      <button class="lang-btn sel" id="lb-en" onclick="setLang('en')">🇬🇧 English</button>
+      <button class="lang-btn" id="lb-de" onclick="setLang('de')">🇩🇪 Deutsch</button>
+    </div>
+    <div class="form-field"><input id="f-name" type="text" placeholder="Your full name" autocomplete="name"></div>
+    <div class="form-field"><input id="f-loc"  type="text" placeholder="Your showroom / location"></div>
+    <button class="login-btn" id="lbtn" onclick="startQuiz()">Start →</button>
+    <div class="login-hint" id="lhint">Your answers are saved automatically after completion.</div>
+  </div>
+</div>
+
+<!-- ══ SCREEN: QUIZ ══ -->
+<div id="s-quiz" class="screen">
+  <div class="quiz-top">
+    <div class="qt-left">
+      <div class="qt-logo">Livom · 10% Showroom Discount</div>
+      <div class="qt-user" id="qt-user">–</div>
+    </div>
+    <div class="qt-prog">
+      <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+      <div class="qt-count" id="qt-count">0 / 14</div>
+    </div>
+  </div>
+  <div class="quiz-main" id="quiz-main"></div>
+  <div class="quiz-foot">
+    <button class="next-btn" id="next-btn" onclick="nextQ()" disabled>
+      <span id="next-lbl">Next</span> →
+    </button>
+  </div>
+</div>
+
+<!-- ══ SCREEN: RESULTS ══ -->
+<div id="s-results" class="screen">
+  <div class="res-hero">
+    <div class="res-tag" id="rt">Your Results</div>
+    <div class="res-user" id="ru">–</div>
+    <div class="score-circle" id="sc-ring">
+      <div class="score-pct" id="sc-pct">–</div>
+      <div class="score-lbl" id="sc-lbl">Score</div>
+    </div>
+    <div class="res-title" id="r-title">–</div>
+    <div class="res-sub" id="r-sub">–</div>
+  </div>
+  <div class="res-body">
+
+    <!-- Score summary bar -->
+    <div class="summary-grid">
+      <div class="sum-item"><div class="sum-n" id="s-correct" style="color:var(--green)">0</div><div class="sum-l" id="s-cl">Correct</div></div>
+      <div class="sum-item"><div class="sum-n" id="s-wrong" style="color:var(--rust)">0</div><div class="sum-l" id="s-wl">Incorrect</div></div>
+      <div class="sum-item"><div class="sum-n" id="s-open" style="color:var(--amber)">0</div><div class="sum-l" id="s-ol">Open answers</div></div>
+      <div class="sum-item"><div class="sum-n" id="s-time" style="color:var(--blue)">0s</div><div class="sum-l" id="s-tl">Time</div></div>
+    </div>
+
+    <!-- Export prompt — prominent -->
+    <div class="export-prompt" id="export-prompt">
+      <div class="ep-icon">📥</div>
+      <div class="ep-content">
+        <div class="ep-title" id="ep-title">Download your results</div>
+        <div class="ep-sub" id="ep-sub">Save as PDF and send to your manager.</div>
+      </div>
+      <button class="ep-btn" onclick="doExport()" id="exp-btn">⬇ Download Excel</button>
+    </div>
+
+    <!-- Per-question review -->
+    <div class="section-label" id="rl-label" style="margin-top:24px">Your Answers</div>
+    <div id="review-list"></div>
+
+    <!-- Second export at bottom -->
+    <div style="text-align:center;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)">
+      <button class="res-btn gold" onclick="doExport()" style="font-size:15px;padding:16px 32px">
+        ⬇ <span id="exp-btn2">Download My Results as Excel</span>
+      </button>
+      <div style="font-size:12px;color:var(--mid);margin-top:8px" id="exp-hint">Cleanly formatted · ready to send</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ SCREEN: ADMIN ══ -->
+<div id="s-admin" class="screen">
+  <div class="admin-top">
+    <div>
+      <div class="at-tag">Admin Dashboard</div>
+      <div class="at-title">Team Results Overview</div>
+    </div>
+    <button class="at-logout" onclick="showScreen('s-login')">← Back</button>
+  </div>
+  <div class="admin-body">
+    <div class="admin-stats">
+      <div class="astat"><div class="astat-n" id="a-total" style="color:var(--ink)">0</div><div class="astat-l" id="a-tl">Participants</div></div>
+      <div class="astat"><div class="astat-n" id="a-avg" style="color:var(--teal)">–</div><div class="astat-l" id="a-al">Avg Score</div></div>
+      <div class="astat"><div class="astat-n" id="a-pass" style="color:var(--green)">0</div><div class="astat-l" id="a-pl">Passed ≥80%</div></div>
+      <div class="astat"><div class="astat-n" id="a-need" style="color:var(--rust)">0</div><div class="astat-l" id="a-nl">Need Review</div></div>
+      <div class="astat"><div class="astat-n" id="a-best" style="color:var(--gold)">–</div><div class="astat-l">Top Score</div></div>
+    </div>
+
+    <!-- Setup banner -->
+    <div id="banner-not-configured" style="background:rgba(181,69,27,0.07);border:1px solid rgba(181,69,27,0.2);border-radius:var(--r);padding:14px 18px;margin-bottom:16px;display:flex;align-items:flex-start;gap:12px">
+      <div style="font-size:20px;flex-shrink:0">&#9888;&#65039;</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;color:var(--rust);margin-bottom:4px">Google Sheets not yet connected &mdash; results only saved on this device</div>
+        <div style="font-size:12px;color:var(--slate);line-height:1.6;margin-bottom:10px">To collect results from all showroom managers across different devices, connect Google Sheets (free, ~10 min setup). Until then, use <strong>Export Excel</strong> regularly. Type <strong>test</strong> to preview the quiz without saving.</div>
+        <button onclick="var g=document.getElementById('setup-guide');g.style.display=g.style.display==='none'?'block':'none'" style="padding:7px 14px;border-radius:6px;border:1.5px solid var(--rust);background:transparent;color:var(--rust);font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif">Show Google Sheets setup &#9660;</button>
+      </div>
+    </div>
+    <div id="setup-guide" style="display:none;background:var(--white);border:1px solid var(--border);border-radius:var(--r2);padding:24px;margin-bottom:16px">
+      <div style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:16px">Setup Guide &mdash; 10 minutes, free</div>
+      <ol style="display:flex;flex-direction:column;gap:14px;padding-left:20px">
+        <li style="font-size:13px;color:var(--slate);line-height:1.6"><strong style="color:var(--ink)">Create a Google Sheet</strong><br>Go to <a href="https://sheets.new" target="_blank" style="color:var(--teal)">sheets.new</a> &mdash; name it &ldquo;Livom Quiz Results&rdquo;.</li>
+        <li style="font-size:13px;color:var(--slate);line-height:1.6"><strong style="color:var(--ink)">Open Apps Script</strong><br>In the Sheet: <strong>Extensions &rarr; Apps Script</strong>. Delete existing code, paste the script below.</li>
+        <li style="font-size:13px;color:var(--slate);line-height:1.6">
+          <strong style="color:var(--ink)">Paste this script:</strong>
+          <div style="margin-top:8px;background:var(--ink);color:#7EC99A;padding:14px;border-radius:var(--r);font-family:monospace;font-size:11px;line-height:1.7;overflow-x:auto;white-space:pre">function doGet(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSheet();
+    var data  = JSON.parse(decodeURIComponent(e.parameter.data));
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(data.headers);
+      sheet.getRange(1,1,1,data.headers.length)
+           .setBackground('#1A1612')
+           .setFontColor('#C9A85C')
+           .setFontWeight('bold');
+    }
+    sheet.appendRow(data.row);
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'ok'}))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService
+      .createTextOutput(JSON.stringify({status:'error',msg:String(err)}))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}</div>
+        </li>
+        <li style="font-size:13px;color:var(--slate);line-height:1.6"><strong style="color:var(--ink)">Deploy as Web App</strong><br>Click <strong>Deploy &rarr; New deployment</strong>. Type: Web app. Execute as: Me. Who has access: Anyone. Click Deploy &rarr; copy the URL.</li>
+        <li style="font-size:13px;color:var(--slate);line-height:1.6">
+          <strong style="color:var(--ink)">Paste the URL into this HTML file</strong><br>
+          Open the file in a text editor. Find this line and replace the placeholder:<br>
+          <code style="display:block;margin-top:6px;background:var(--ink);color:#C9A85C;padding:8px 12px;border-radius:var(--r);font-size:11px">const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyejddsO6MgvUudFsEs5-3La1fA_gf5ngYUWg02RnuQYUb2xaSdPxJcVkoqGTrV7YT5zw/exec';</code>
+          <span style="font-size:12px">Replace with your URL, e.g. https://script.google.com/macros/s/ABC.../exec</span>
+        </li>
+      </ol>
+      <div style="margin-top:16px;padding:12px 16px;background:var(--green3);border-radius:var(--r);border:1px solid rgba(46,125,82,0.2);font-size:12px;color:var(--slate)">
+        <strong style="color:var(--green)">&#10003; Once connected:</strong> Every time a showroom manager finishes the quiz on any device, their results appear instantly in your Google Sheet. Share the HTML file via email, Google Drive, or WeTransfer.
+      </div>
+    </div>
+    <div id="banner-configured" style="display:none;background:rgba(46,125,82,0.08);border:1px solid rgba(46,125,82,0.2);border-radius:var(--r);padding:12px 16px;margin-bottom:16px;align-items:center;gap:12px">
+      <div style="font-size:18px">&#10004;&#65039;</div>
+      <div style="font-size:13px;color:var(--green);font-weight:600">Google Sheets connected &mdash; results sync automatically from all devices.</div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchTab('ranking')">🏆 Ranking</button>
+      <button class="admin-tab" onclick="switchTab('participants')">👥 Participants</button>
+      <button class="admin-tab" onclick="switchTab('questions')">📊 Questions</button>
+    </div>
+
+    <!-- Tab: Ranking -->
+    <div class="tab-panel active" id="tab-ranking">
+      <div class="admin-bar">
+        <input id="filter-search-r" type="text" placeholder="Search by name..." oninput="renderAdmin()">
+        <button class="admin-export-btn" onclick="exportExcel()">⬇ Export Excel</button>
+        <button class="admin-export-btn ghost" onclick="exportReport()">📄 Team Report</button>
+      </div>
+      <div id="ranking-list"></div>
+    </div>
+
+    <!-- Tab: Participants (detailed) -->
+    <div class="tab-panel" id="tab-participants">
+      <div class="admin-bar">
+        <select id="filter-sel" onchange="renderAdmin()">
+          <option value="all">All participants</option>
+          <option value="pass">Passed only ≥80%</option>
+          <option value="fail">Need review</option>
+        </select>
+        <input id="filter-search" type="text" placeholder="Search by name..." oninput="renderAdmin()">
+      </div>
+      <div id="admin-list"></div>
+    </div>
+
+    <!-- Tab: Questions -->
+    <div class="tab-panel" id="tab-questions">
+      <div class="q-breakdown" id="qb-section">
+        <div id="qb-list"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════════
+// STORAGE KEY
+// ════════════════════════════════════════════════
+const STORE_KEY = 'livom_quiz_results';
+
+// ════════════════════════════════════════════════
+// GOOGLE SHEETS CONFIG
+// Paste your Google Apps Script Web App URL here:
+// ════════════════════════════════════════════════
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyejddsO6MgvUudFsEs5-3La1fA_gf5ngYUWg02RnuQYUb2xaSdPxJcVkoqGTrV7YT5zw/exec';
+
+function loadResults() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '[]'); } catch(e) { return []; }
+}
+
+function saveResult(entry) {
+  // Always save locally
+  const all = loadResults();
+  all.push(entry);
+  localStorage.setItem(STORE_KEY, JSON.stringify(all));
+
+  // Also send to Google Sheets if URL is configured
+  if (GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
+    sendToSheets(entry);
+  }
+}
+
+function sendToSheets(entry) {
+  // Build flat row
+  const row = [
+    entry.name,
+    entry.location || '',
+    entry.lang ? entry.lang.toUpperCase() : '',
+    new Date(entry.date).toLocaleString('de-DE'),
+    entry.score + '%',
+    entry.correct || 0,
+    entry.graded || 0,
+    entry.time || '',
+    entry.score >= 80 ? 'PASSED' : entry.score >= 60 ? 'REVIEW' : 'RETRY',
+  ];
+  (entry.answers || []).forEach((a, i) => {
+    if (!a) { row.push(''); return; }
+    if (a.type === 'open') {
+      row.push(a.text || '');
+    } else if (a.type === 'mc' || a.type === 'tf') {
+      const q = QUESTIONS[i];
+      const opts = (q && q.opts && (q.opts[entry.lang] || q.opts.en)) || [];
+      const selTxt = opts && a.selected !== undefined ? opts[a.selected]
+                   : a.selected === true ? 'True' : a.selected === false ? 'False' : '';
+      row.push((a.correct ? 'OK: ' : 'X: ') + selTxt);
+    } else {
+      row.push(a.correct ? 'Correct' : 'Incorrect');
+    }
+  });
+
+  // Use GET with encoded JSON param — works cross-origin from local HTML files
+  const payload = encodeURIComponent(JSON.stringify({
+    headers: buildSheetHeaders(),
+    row: row
+  }));
+  const url = GOOGLE_SCRIPT_URL + '?data=' + payload;
+
+  // Use an Image request — always works cross-origin, no CORS issues
+  const img = new Image();
+  img.src = url;
+  img.onerror = img.onload = function() {};
+}
+
+function buildSheetHeaders() {
+  const base = ['Name','Showroom','Language','Date','Score','Correct','Graded','Time','Result'];
+  QUESTIONS.forEach((q, i) => {
+    base.push('Q' + (i+1) + ' [' + q.type.toUpperCase() + '] ' + q.q.en.substring(0, 40));
+  });
+  return base;
+}
+
+// ════════════════════════════════════════════════
+// LANG
+// ════════════════════════════════════════════════
+let lang = 'en';
+const T = {
+  en: {
+    title: '10% Showroom<br>Knowledge Check',
+    sub: '16 questions — scenarios, multiple choice, open reflection and real situations.',
+    namePH: 'Your full name', locPH: 'Your showroom / location',
+    startBtn: 'Start →', hint: 'Your answers are saved automatically after completion.',
+    next: 'Next', submit: 'Submit Quiz',
+    resultTag: 'Your Results', correct: 'Correct', incorrect: 'Incorrect',
+    openAns: 'Open answers', time: 'Time',
+    review: 'Question Review', expBtn: '⬇ Download My Results (Excel)', retakeBtn: '↺ Retake',
+    passTitle: 'Excellent work.', okTitle: 'Good effort.', failTitle: 'Keep learning.',
+    passSub: 'You understand how and when to use the 10% Showroom Discount.',
+    okSub: 'A few areas to review — almost there.',
+    failSub: 'Revisit the training material and try again.',
+    score: 'Score', aTotal: 'Participants', aAvg: 'Avg Score',
+    aPass: 'Passed ≥80%', aNeed: 'Need Review', aPart: 'Participants',
+    aQb: 'Question Difficulty (% Correct)',
+    openLbl: 'Open answer', submitOpen: 'Submit answer', submitted: '✓ Answer saved',
+    submitOrder: 'Check order',
+  },
+  de: {
+    title: '10% Showroom-<br>Wissen prüfen',
+    sub: '16 Fragen — Szenarien, Mehrfachauswahl, offene Reflexion und echte Situationen.',
+    namePH: 'Dein vollständiger Name', locPH: 'Dein Showroom / Standort',
+    startBtn: 'Starten →', hint: 'Deine Antworten werden nach dem Abschluss automatisch gespeichert.',
+    next: 'Weiter', submit: 'Quiz abgeben',
+    resultTag: 'Dein Ergebnis', correct: 'Richtig', incorrect: 'Falsch',
+    openAns: 'Offene Antworten', time: 'Zeit',
+    review: 'Antworten', expBtn: '⬇ Ergebnisse als Excel herunterladen', retakeBtn: '↺ Wiederholen',
+    passTitle: 'Hervorragend.', okTitle: 'Gut gemacht.', failTitle: 'Weiter lernen.',
+    passSub: 'Du verstehst, wie und wann du den 10% Showroom-Vorteil einsetzt.',
+    okSub: 'Ein paar Punkte zum Überarbeiten — fast geschafft.',
+    failSub: 'Lies das Training nochmal durch und versuche es erneut.',
+    score: 'Punkte', aTotal: 'Teilnehmer', aAvg: 'Ø Ergebnis',
+    aPass: 'Bestanden ≥80%', aNeed: 'Überarbeiten', aPart: 'Teilnehmer',
+    aQb: 'Fragenübersicht (% korrekt)',
+    openLbl: 'Offene Antwort', submitOpen: 'Antwort absenden', submitted: '✓ Antwort gespeichert',
+    submitOrder: 'Reihenfolge prüfen',
+  }
+};
+function t(k) { return T[lang][k] || T.en[k]; }
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('lb-en').classList.toggle('sel', l==='en');
+  document.getElementById('lb-de').classList.toggle('sel', l==='de');
+  const tl = T[l];
+  document.getElementById('lt').innerHTML = tl.title;
+  document.getElementById('ls').textContent = tl.sub;
+  document.getElementById('f-name').placeholder = tl.namePH;
+  document.getElementById('f-loc').placeholder = tl.locPH;
+  document.getElementById('lbtn').textContent = tl.startBtn;
+  document.getElementById('lhint').innerHTML = tl.hint;
+}
+
+// ════════════════════════════════════════════════
+// QUESTIONS — 16 questions directly from training document
+// Types: mc (single choice), multi (multiple choice), open (free text), order (drag/sort), match (assign)
+// ════════════════════════════════════════════════
+const QUESTIONS = [
+
+// ─── SECTION 1: Reframe & Grundlagen ─────────────────────────────────────────
+{
+  sec:  { en: 'Reframe — What the 10% Really Is', de: 'Reframe — Was der 10%-Vorteil wirklich ist' },
+  secN: 1,
+  type: 'mc',
+  q: {
+    en: 'Which statement best describes the 10% showroom discount?',
+    de: 'Welche Aussage beschreibt den 10%-Showroom-Vorteil am besten?'
+  },
+  opts: {
+    en: [
+      'It is a price reduction so customers buy despite uncertainty.',
+      'It is a negotiating tool when customers find the price too high.',
+      'It is a decision support tool and reward for deciding in the showroom.',
+      'It is an offer that can also be given afterwards by email.'
+    ],
+    de: [
+      'Er ist ein Preisnachlass, damit Kund:innen trotz Unsicherheit kaufen.',
+      'Er ist ein Verhandlungsmittel, wenn Kund:innen den Preis zu hoch finden.',
+      'Er ist eine Entscheidungshilfe und Belohnung für die Entscheidung im Showroom.',
+      'Er ist ein Angebot, das man jederzeit auch nachtraglich per E-Mail geben kann.'
+    ]
+  },
+  correct: 2,
+  fb: {
+    en: '<strong>Correct: C.</strong> The core reframe from the training: the discount is not a lure, it supports a buying intention that already exists. It comes at the end as a reward for the decision — not as bait at the start.',
+    de: '<strong>Richtig: C.</strong> Das zentrale Reframe aus dem Training: Der Vorteil ist kein Köder, sondern unterstützt eine bereits entstandene Kaufabsicht. Er kommt am Ende als Belohnung für die Entscheidung — nicht als Köder am Anfang.'
+  },
+  fb_wrong: {
+    en: 'Think about the message each option sends. The discount is not about price — it is about supporting a decision that is already forming.',
+    de: 'Überlege, welche Botschaft jede Option sendet. Der Vorteil geht nicht um den Preis — er geht darum, eine bereits entstehende Entscheidung zu unterstützen.'
+  }
+},
+
+// Q2 — Multiple Choice
+{
+  sec: null,
+  type: 'multi',
+  q: {
+    en: 'Which effects can the old approach "We reduce the price" have?<br><small style="color:var(--mid)">Multiple answers possible — select all that apply.</small>',
+    de: 'Welche Wirkungen kann die alte Logik "Wir machen den Preis runter" haben?<br><small style="color:var(--mid)">Mehrere Antworten möglich — alle richtigen auswählen.</small>'
+  },
+  opts: {
+    en: [
+      'It reduces the perceived premium value.',
+      'It invites customers to renegotiate.',
+      'It makes the showroom discount more exclusive.',
+      'It can feel like sales pressure when used too early.',
+      'It automatically strengthens trust in the consultation.'
+    ],
+    de: [
+      'Sie reduziert den wahrgenommenen Premium-Wert.',
+      'Sie lädt Kund:innen zum Nachverhandeln ein.',
+      'Sie macht den Showroom-Vorteil exklusiver.',
+      'Sie kann wie Verkaufsdruck wirken, wenn sie zu früh kommt.',
+      'Sie stärkt automatisch das Vertrauen in die Beratung.'
+    ]
+  },
+  correctMulti: [0, 1, 3],
+  fb: {
+    en: '<strong>Correct: A, B and D.</strong> The old "we reduce the price" approach signals the price was too high — which reduces premium perception, invites renegotiation, and creates pressure when applied before needs are understood.',
+    de: '<strong>Richtig: A, B und D.</strong> Die alte Logik "Wir machen den Preis runter" signalisiert, der Preis war zu hoch — was den Premium-Wert reduziert, zum Nachverhandeln einlädt und Druck erzeugt, wenn sie angewendet wird, bevor der Bedarf verstanden ist.'
+  }
+},
+
+// Q3 — Order / sort
+{
+  sec: null,
+  type: 'order',
+  q: {
+    en: 'Put the 4 consultation stages in the correct order. Then: which stage does the 10% discount belong to?',
+    de: 'Bringe die 4 Gesprächsmomente in die richtige Reihenfolge. Dann: In welchem Moment lebt der 10%-Vorteil?'
+  },
+  items: {
+    en: [
+      'Close — spot buy signal, use discount, lead to decision',
+      'Welcome — greet, build trust, ease tension',
+      'Configure — choose fabric, colour, dimensions together',
+      'Understand — clarify needs, living situation, lifestyle'
+    ],
+    de: [
+      'Abschließen — Kaufsignal erkennen, Vorteil einsetzen, Entscheidung führen',
+      'Empfangen — begrüßen, Vertrauen aufbauen, Druck rausnehmen',
+      'Konfigurieren — Stoff, Farbe, Maße gemeinsam wählen',
+      'Verstehen — Bedarf, Wohnsituation, Lebensgefühl klärenn'
+    ]
+  },
+  correctOrder: [1, 3, 2, 0],
+  fb: {
+    en: '<strong>Welcome \u2192 Understand \u2192 Configure \u2192 Close.</strong> The 10% belongs exclusively in Stage 4: Close. The training: "The advantage bridges the gap between willingness to buy and the signature \u2014 not the initial anchor point."',
+    de: '<strong>Empfangen \u2192 Verstehen \u2192 Konfigurieren \u2192 Abschließen.</strong> Der 10%-Vorteil lebt ausschließlich im 4. Moment: Abschließen. Das Training: "Der Vorteil ist die Brucke zwischen Kaufbereitschaft und Unterschrift \u2014 nicht der Anker am Anfang."'
+  }
+},
+
+// Q4 — Scenario MC
+{
+  sec: null,
+  type: 'mc',
+  scenario: {
+    en: 'A customer walks in. After the greeting you say: "Just so you know: if you order today, you get 10% off."',
+    de: 'Ein Kunde kommt in den Showroom. Nach der Begrüßung sagst du: "Nur damit Sie es direkt wissen: Wenn Sie heute bestellen, bekommen Sie 10%."'
+  },
+  q: {
+    en: 'What is the problem here?',
+    de: 'Was ist daran problematisch?'
+  },
+  opts: {
+    en: [
+      'The statement is too friendly.',
+      'The discount is mentioned too early \u2014 before needs and trust have been built.',
+      'The discount should never be actively mentioned.',
+      'The statement is only wrong if the customer does not buy afterwards.'
+    ],
+    de: [
+      'Die Aussage ist zu freundlich.',
+      'Der Vorteil wird zu früh genannt \u2014 bevor Bedarf und Vertrauen aufgebaut wurden.',
+      'Der Vorteil darf nie aktiv angesprochen werden.',
+      'Die Aussage ist nur falsch, wenn der Kunde danach nicht kauft.'
+    ]
+  },
+  correct: 1,
+  fb: {
+    en: '<strong>Correct: B.</strong> The training rule is clear: first the need, then the benefit. At the moment of greeting there is no configuration, no understood need, no trust yet. The discount here creates sales pressure \u2014 the exact opposite of its purpose.',
+    de: '<strong>Richtig: B.</strong> Die Trainingsregel ist klar: Erst Bedarf, dann Vorteil. Im Moment der Begrüßung gibt es keine Konfiguration, keinen verstandenen Bedarf, noch kein Vertrauen. Der Vorteil erzeugt hier Verkaufsdruck \u2014 das Gegenteil seines Zwecks.'
+  },
+  fb_wrong: {
+    en: 'The key is timing. Even if the intention is good, offering the discount before needs are understood violates the core principle.',
+    de: 'Das Kernthema ist Timing. Auch bei guter Absicht verletzt das Anbieten des Vorteils vor dem Bedarf das zentrale Prinzip.'
+  }
+},
+
+// Q5 — Multiple Choice (three mistakes)
+{
+  sec: null,
+  type: 'multi',
+  q: {
+    en: 'Which <strong>three</strong> mistakes were highlighted in the training as weakening the showroom discount?<br><small style="color:var(--mid)">Select three answers.</small>',
+    de: 'Welche <strong>drei</strong> Fehler wurden im Training als Schwächung des Showroom-Vorteils hervorgehoben?<br><small style="color:var(--mid)">Drei Antworten auswählen.</small>'
+  },
+  opts: {
+    en: [
+      'Mentioning the discount too early.',
+      'Naming the discount clearly and confidently.',
+      'Mentioning the discount casually as a throwaway aside.',
+      'Only offering it defensively when the customer is already heading for the door.',
+      'Naming it after a deliberate pause.'
+    ],
+    de: [
+      'Den Vorteil zu früh nennen.',
+      'Den Vorteil klar und selbstbewusst nennen.',
+      'Den Vorteil beiläufig als Nebensatz erwhnen.',
+      'Den Vorteil erst defensiv bringen, wenn der Kunde schon gehen will.',
+      'Den Vorteil nach einer bewussten Pause nennen.'
+    ]
+  },
+  correctMulti: [0, 2, 3],
+  fb: {
+    en: '<strong>Correct: A, C and D.</strong> The three mistakes: (1) Too early \u2014 before needs are clear. (2) Too casual \u2014 as a throwaway aside, not a dedicated sentence. (3) Too defensive \u2014 only when the customer is already leaving, which makes it feel like a last resort, not a reward.',
+    de: '<strong>Richtig: A, C und D.</strong> Die drei Fehler: (1) Zu früh \u2014 bevor der Bedarf klar ist. (2) Zu beiläufig \u2014 als Nebensatz, nicht als eigener Satz. (3) Zu defensiv \u2014 erst wenn der Kunde schon gehen will, was ihn wie eine Notbremse wirken lasst, nicht wie eine Belohnung.'
+  }
+},
+
+// ─── SECTION 2: Buying Signals ───────────────────────────────────────────────
+{
+  sec:  { en: 'Buying Signals \u2014 Recognise the Moment', de: 'Kaufsignale \u2014 Den Moment erkennen' },
+  secN: 2,
+  type: 'match',
+  q: {
+    en: 'Buying signal or not? Use the dropdown next to each statement to assign it.<br><small style="color:var(--mid)"><strong>A</strong> = Buying signal &nbsp;|&nbsp; <strong>B</strong> = Not yet a clear buying signal</small>',
+    de: 'Kaufsignal oder noch nicht? Wähle beim Dropdown neben jeder Aussage die richtige Zuordnung.<br><small style="color:var(--mid)"><strong>A</strong> = Kaufsignal &nbsp;|&nbsp; <strong>B</strong> = Noch kein klärens Kaufsignal</small>'
+  },
+  matchItems: {
+    en: [
+      '"How long would delivery take approximately?"',
+      '"We are just browsing for now."',
+      '"The fabric in beige matches our floor perfectly."',
+      '"Could you show us the dimensions again because of our stairwell?"',
+      '"What does the smallest model cost?"',
+      '"Would it be possible to pay in instalments?"'
+    ],
+    de: [
+      '"Wie lange dauert die Lieferung ungefahr?"',
+      '"Wir schauen uns erstmal nur um."',
+      '"Der Stoff in Beige passt gut zu unserem Boden."',
+      '"Können Sie uns die Maße nochmal zeigen wegen dem Treppenhaus?"',
+      '"Was kostet eigentlich das kleinste Modell?"',
+      '"Wäre eine Finanzierung möglich?"'
+    ]
+  },
+  matchAnswers: ['A', 'B', 'A', 'A', 'B', 'A'],
+  matchLabels: {
+    en: ['A = Buying signal', 'B = Not yet'],
+    de: ['A = Kaufsignal', 'B = Noch nicht']
+  },
+  fb: {
+    en: '<strong>Correct assignment:</strong> Logistics questions (delivery, dimensions/stairwell) and specific home references (beige matches our floor) and financing questions are strong buying signals. "Just browsing" and "what does the smallest model cost?" are general interest \u2014 not yet decisive signals.',
+    de: '<strong>Korrekte Zuordnung:</strong> Logistik-Fragen (Lieferung, Maße/Treppenhaus), konkreter Wohnbezug (Beige passt zum Boden) und Finanzierungsfragen sind starke Kaufsignale. "Nur umschauen" und "was kostet das kleinste Modell?" sind allgemeines Interesse \u2014 noch keine entscheidenden Signale.'
+  }
+},
+
+// Q7 — Single Choice
+{
+  sec: null,
+  type: 'mc',
+  q: {
+    en: 'According to the training: when should the discount be actively used?',
+    de: 'Laut Training: Ab wann sollte der Vorteil aktiv eingesetzt werden?'
+  },
+  opts: {
+    en: [
+      'As soon as the customer enters the showroom.',
+      'As soon as the customer asks for a discount.',
+      'When two or more buying signals occur.',
+      'Only when the customer is already heading for the door.'
+    ],
+    de: [
+      'Sobald der Kunde den Showroom betritt.',
+      'Sobald der Kunde nach einem Rabatt fragt.',
+      'Wenn zwei oder mehr Kaufsignale auftreten.',
+      'Erst wenn der Kunde schon gehen möchte.'
+    ]
+  },
+  correct: 2,
+  fb: {
+    en: '<strong>Correct: C.</strong> The training rule of thumb: if 2 or more buying signals occur, the moment is now. And: "If you are asking yourself \'Is the customer ready?\' \u2014 they already are."',
+    de: '<strong>Richtig: C.</strong> Die Trainings-Faustregel: Wenn 2 oder mehr Kaufsignale auftreten, ist der Moment jetzt. Und: "Wenn du dich fragst \'Ist der Kunde so weit?\' \u2014 dann ist er es schon."'
+  },
+  fb_wrong: {
+    en: 'The training gives a precise rule. Neither at the greeting, nor on demand, nor as a last resort. When exactly?',
+    de: 'Das Training gibt eine präzise Regel. Weder bei der Begrüßung, noch auf Nachfrage, noch als letzter Ausweg. Wann genau?'
+  }
+},
+
+// Q8 — Open, scenario-based
+{
+  sec: null,
+  type: 'open',
+  scenario: {
+    en: 'A couple sits on the same sofa configuration several times. They are quietly discussing with each other. They ask about delivery time and say: "That would look perfect next to our lamp."',
+    de: 'Ein Paar sitzt mehrfach auf derselben Sofakonfiguration. Beide diskutieren leise miteinander. Sie fragen nach Lieferzeit und sagen: "Das wurde perfekt neben unsere Lampe passen."'
+  },
+  q: {
+    en: 'What buying signals do you recognise here \u2014 and what would your next step be?',
+    de: 'Was erkennst du hier \u2014 und was wäre dein nächster sinnvoller Schritt?'
+  },
+  hints: {
+    en: ['Name the signals you see. Then: what would you do or say next?'],
+    de: ['Nenne die Signale, die du erkennst. Dann: Was wurde dein nächster Schritt sein?']
+  },
+  idealPoints: {
+    en: [
+      'Signals: sitting repeatedly on same config + logistics question + specific room reference + mutual deliberation',
+      'Next step: move calmly into Stage 4 (Close) and offer the 10% showroom discount',
+      'A strong answer includes: signals identified + Stage 4 named + a phrase that is confident and without pressure'
+    ],
+    de: [
+      'Signale: mehrfach auf gleicher Konfiguration + Logistik-Frage + konkreter Raumbezug + gegenseitiges Abwägen',
+      'Nächster Schritt: ruhig in den Abschlussmoment (Moment 4) gehen und den 10%-Showroom-Vorteil einsetzen',
+      'Eine starke Antwort enthalt: erkannte Signale + Moment 4 benannt + eine Formulierung, die ruhig und ohne Druck ist'
+    ]
+  }
+},
+
+// ─── SECTION 3: Scripts & Customer Types ─────────────────────────────────────
+{
+  sec:  { en: 'Scripts \u2014 Right Words for 3 Customer Types', de: 'Skripte \u2014 Richtige Worte für 3 Kundentypen' },
+  secN: 3,
+  type: 'match',
+  q: {
+    en: 'Match each situation to the correct customer type using the dropdown.<br><small style="color:var(--mid)"><strong>A</strong> = The Determined One &nbsp;|&nbsp; <strong>B</strong> = The Deliberating Couple &nbsp;|&nbsp; <strong>C</strong> = The Cautious One</small>',
+    de: 'Ordne jeder Situation den passenden Kundentyp zu — wähle das Dropdown neben jeder Aussage.<br><small style="color:var(--mid)"><strong>A</strong> = Der Entschlossene &nbsp;|&nbsp; <strong>B</strong> = Das diskutierende Paar &nbsp;|&nbsp; <strong>C</strong> = Der Vorsichtige</small>'
+  },
+  matchItems: {
+    en: [
+      'The customer asks many detailed questions and says: "I need to sleep on it first."',
+      'Two people are talking quietly to each other, visibly weighing things up.',
+      'The configuration is set, questions are short, the customer says several times: "Yes, that fits."'
+    ],
+    de: [
+      'Der Kunde stellt viele Detailfragen und sagt: "Ich möchte nochmal darüber schlafen."',
+      'Zwei Personen sprechen halblaut miteinander und wagen sichtbar ab.',
+      'Die Konfiguration steht, die Fragen sind kurz, der Kunde sagt mehrfach: "Ja, das passt."'
+    ]
+  },
+  matchAnswers: ['C', 'B', 'A'],
+  matchLabels: {
+    en: ['A = The Determined One', 'B = The Deliberating Couple', 'C = The Cautious One'],
+    de: ['A = Der Entschlossene', 'B = Das diskutierende Paar', 'C = Der Vorsichtige']
+  },
+  fb: {
+    en: '<strong>Correct:</strong> Situation 1 = C (The Cautious One). Situation 2 = B (The Deliberating Couple). Situation 3 = A (The Determined One). Each type needs a different phrase \u2014 the determined one wants clarity and speed, the couple needs pressure removed, the cautious one needs empathy and permission.',
+    de: '<strong>Richtig:</strong> Situation 1 = C (Der Vorsichtige). Situation 2 = B (Das diskutierende Paar). Situation 3 = A (Der Entschlossene). Jeder Typ braucht eine andere Formulierung \u2014 der Entschlossene will Klarheit und Tempo, das Paar braucht Druckentlastung, der Vorsichtige braucht Empathie und Erlaubnis.'
+  }
+},
+
+// Q10 — Scenario MC (deliberating couple)
+{
+  sec: null,
+  type: 'mc',
+  scenario: {
+    en: 'A couple is discussing quietly. One person is already convinced, the other still seems unsure.',
+    de: 'Ein Paar diskutiert halblaut miteinander. Eine Person ist schon überzeugt, die andere wirkt noch unsicher.'
+  },
+  q: {
+    en: 'A colleague is watching. Which of these responses would they rate as professional?',
+    de: 'Ein Kollege schaut zu. Welche dieser Reaktionen würde er als professionell bewerten?'
+  },
+  opts: {
+    en: [
+      '"You should decide quickly, otherwise the discount is gone."',
+      '"Take all the time you need. If you reach an agreement today, I can give you 10% \u2014 as a thank-you for making your decision in the showroom."',
+      '"I think this is definitely the right choice anyway. I would just go for it."',
+      '"If you are unsure, I\'m afraid I can\'t help you further."'
+    ],
+    de: [
+      '"Sie sollten sich schnell entscheiden, sonst ist der Vorteil weg."',
+      '"Nehmt euch die Zeit, die ihr braucht. Falls ihr heute auf einen Nenner kommt, kann ich euch 10% mitgeben \u2014 als Anerkennung für die Entscheidung im Showroom."',
+      '"Ich glaube, das ist sowieso die beste Wahl. Ich wurde es einfach machen."',
+      '"Wenn Sie unsicher sind, kann ich Ihnen leider nicht helfen."'
+    ]
+  },
+  correct: 1,
+  fb: {
+    en: '<strong>Correct: B.</strong> This is the exact Type B script from the training: remove pressure, keep the door open, name the value. "Take all the time you need" = freedom. "If you reach an agreement" = their decision, not forced. "As a thank-you for deciding here" = reward, not tactic.',
+    de: '<strong>Richtig: B.</strong> Das ist das genaue Typ-B-Skript aus dem Training: Druck rausnehmen, Tür offenhalten, Wert benennen. "Nehmt euch die Zeit" = Freiheit. "Falls ihr auf einen Nenner kommt" = ihre Entscheidung, nicht erzwungen. "Als Anerkennung" = Belohnung, keine Taktik.'
+  },
+  fb_wrong: {
+    en: 'The deliberating couple needs pressure removed first. Which phrase gives them control while still naming the value of deciding today?',
+    de: 'Das diskutierende Paar braucht zuerst Druckentlastung. Welche Formulierung gibt ihnen Kontrolle und nennt trotzdem den Wert des Entscheidens heute?'
+  }
+},
+
+// Q11 — Open, write your own phrase
+{
+  sec: null,
+  type: 'open',
+  scenario: {
+    en: 'The customer has decided on fabric, colour and size. They are showing clear buying signals.',
+    de: 'Der Kunde hat Stoff, Farbe und Größe entschieden. Er zeigt klären Kaufsignale.'
+  },
+  q: {
+    en: 'Write your own sentence for the 10% showroom discount. It must: name the benefit clearly, sound confident, not feel like begging or pressure, show that the discount is tied to deciding in the showroom.',
+    de: 'Formuliere deinen eigenen Satz für den 10%-Showroom-Vorteil. Er muss: den Vorteil klar benennen, selbstbewusst klingen, nicht wie Betteln oder Druck wirken, zeigen dass der Vorteil an die Entscheidung im Showroom gebunden ist.'
+  },
+  hints: {
+    en: ['One sentence. Confident. No "maybe" or "perhaps". Which customer type do you see most often?'],
+    de: ['Ein Satz. Selbstbewusst. Kein "vielleicht" oder "konnte". Welchen Kundentyp siehst du am haufigsten?']
+  },
+  idealPoints: {
+    en: [
+      'Names the 10% clearly and confidently',
+      'Links the benefit to the decision in the showroom (not later, not by email)',
+      'No hesitant language ("maybe", "perhaps", "could")',
+      'Example: "The configuration is set. If you decide here today, I can give you our 10% showroom discount right now."'
+    ],
+    de: [
+      'Nennt die 10% klar und selbstbewusst',
+      'Verknüpft den Vorteil mit der Entscheidung im Showroom (nicht spater, nicht per Mail)',
+      'Keine zögernde Sprache ("vielleicht", "konnte")',
+      'Beispiel: "Die Konfiguration steht jetzt sehr klar. Wenn ihr euch heute hier im Showroom entscheidet, kann ich euch den 10%-Showroom-Vorteil direkt mitgeben."'
+    ]
+  }
+},
+
+// ─── SECTION 4: Objections ────────────────────────────────────────────────────
+{
+  sec:  { en: 'Handling the 3 Objections', de: 'Die 3 Einwande behandeln' },
+  secN: 4,
+  type: 'open',
+  scenario: {
+    en: 'Customer: "We want to think it over at home first."',
+    de: 'Kunde: "Wir wollen es uns zu Hause nochmal überlegen."'
+  },
+  q: {
+    en: 'Write a response in the spirit of the training.',
+    de: 'Formuliere eine passende Antwort im Sinne des Trainings.'
+  },
+  hints: {
+    en: ['Acknowledge the objection. Explain the showroom-only condition calmly. Lead back to a decision. No aggressive scarcity.'],
+    de: ['Den Einwand anerkennen. Die Showroom-Bedingung ruhig erklärenn. Zurück zur Entscheidung führen. Keine aggressive Verknappung.']
+  },
+  idealPoints: {
+    en: [
+      'Acknowledges the hesitation ("totally understandable")',
+      'Explains calmly: the 10% is only valid in the showroom',
+      'Suggests finalising the configuration now to get both certainty and best price',
+      'No aggressive pressure or ultimatums',
+      'Example: "Totally understandable. Just so you can make a real decision: the 10% is only valid while you\'re in the showroom. Let\'s finalise the configuration now \u2014 that way you get both the certainty and the best price."'
+    ],
+    de: [
+      'Erkennt das Zögern an ("total verstandlich")',
+      'Erklart ruhig: die 10% gelten nur im Showroom',
+      'Schlagt vor, die Konfiguration jetzt zu finalisieren, um Sicherheit und besten Preis zu bekommen',
+      'Kein aggressiver Druck oder Ultimaten',
+      'Beispiel: "Total verstandlich. Damit ihr eine echte Entscheidung trefft: Der Vorteil von 10% gilt nur, solange ihr im Showroom seid. Lasst uns die Konfiguration jetzt fertigstellen \u2014 dann habt ihr beides: Sicherheit und den besten Preis."'
+    ]
+  }
+},
+
+// Q13 — Scenario MC (email objection)
+{
+  sec: null,
+  type: 'mc',
+  scenario: {
+    en: 'Customer: "Please send me a quote by email."',
+    de: 'Kunde: "Schicken Sie mir ein Angebot per Mail."'
+  },
+  q: {
+    en: 'Which response fits best?',
+    de: 'Welche Antwort passt am besten?'
+  },
+  opts: {
+    en: [
+      '"Of course \u2014 I will send the quote with the 10% included by email."',
+      '"That is not possible. You have to buy now."',
+      '"Sure \u2014 and please note: the showroom discount is only valid if you place your order here today. Should I calculate two options \u2014 one with and one without the discount?"',
+      '"We generally do not send quotes by email."'
+    ],
+    de: [
+      '"Klar, ich schicke Ihnen das Angebot mit dem 10%-Vorteil spater per Mail."',
+      '"Das geht nicht. Sie mussen jetzt kaufen."',
+      '"Sehr gerne, und bitte beachtet: Der Showroom-Vorteil ist an die Bestellung heute hier gebunden. Soll ich euch zwei Varianten rechnen \u2014 einmal mit, einmal ohne?"',
+      '"Ein Angebot per Mail machen wir grundsätzlich nicht."'
+    ]
+  },
+  correct: 2,
+  fb: {
+    en: '<strong>Correct: C.</strong> The training principle: don\'t argue, make the value visible. Two numbers speak louder than words: "With discount: 2,160. Without: 2,400." The customer sees immediately what deciding today is worth. And: the discount is showroom-only \u2014 never extend it by email.',
+    de: '<strong>Richtig: C.</strong> Das Trainingsprinzip: Nicht widersprechen, den Wert sichtbar machen. Zwei Zahlen sprechen lauter als Argumente: "Mit Vorteil: 2.160. Ohne: 2.400." Der Kunde sieht sofort, was die Entscheidung heute wert ist. Und: Der Vorteil gilt nur im Showroom \u2014 nie per Mail.'
+  },
+  fb_wrong: {
+    en: 'The training script for this objection: don\'t refuse, make the VALUE of deciding today visible with two concrete numbers. Which option does that?',
+    de: 'Das Trainingsskript für diesen Einwand: Nicht ablehnen, den WERT des Entscheidens heute mit zwei konkreten Zahlen sichtbar machen. Welche Option tut das?'
+  }
+},
+
+// Q14 — Open (online objection)
+{
+  sec: null,
+  type: 'open',
+  scenario: {
+    en: 'Customer: "I can get it cheaper online."',
+    de: 'Kunde: "Online bekomme ich das doch günstiger."'
+  },
+  q: {
+    en: 'Write a response that correctly explains the value of the consultation and the showroom.',
+    de: 'Formuliere eine Antwort, die den Wert der Beratung und des Showrooms richtig erklärt.'
+  },
+  hints: {
+    en: ['Do not compare prices. Do not negotiate. Reframe: what is the customer actually buying?'],
+    de: ['Kein Preisvergleich. Nicht verhandeln. Neu rahmen: Was kauft der Kunde wirklich?']
+  },
+  idealPoints: {
+    en: [
+      'Stays calm \u2014 no price comparison or negotiation',
+      'Reframes the value: the showroom benefit rewards the consultation experience',
+      'Makes clear: the discount is exclusive to deciding in person',
+      'Example: "You won\'t find this benefit online \u2014 it\'s our way of showing appreciation for coming in, getting advice, and trying the sofa. What you take home isn\'t just the sofa \u2014 it\'s the certainty that it\'s right."'
+    ],
+    de: [
+      'Bleibt ruhig \u2014 kein Preisvergleich, keine Verhandlung',
+      'Rahmt den Wert neu: Der Showroom-Vorteil belohnt das Beratungserlebnis',
+      'Macht klar: Der Vorteil ist exklusiv für die Entscheidung vor Ort',
+      'Beispiel: "Online gibt es diesen Vorteil nicht. Er ist unsere Anerkennung dafur, dass ihr euch hier beraten lasst und probesitzt. Was ihr heute mitnehmt, ist nicht nur das Sofa \u2014 es ist die Sicherheit, dass es wirklich passt."'
+    ]
+  }
+},
+
+// ─── SECTION 5: Do's, Don'ts & Golden Rule ────────────────────────────────────
+{
+  sec:  { en: "Do's, Don'ts & Error Analysis", de: "Mach so, Mach nicht so & Fehleranalyse" },
+  secN: 5,
+  type: 'open',
+  scenario: {
+    en: 'An advisor says: "So normally the sofa costs 3,000, but I can maybe give you 10% if you sign today. Maybe even more \u2014 I would have to ask."',
+    de: 'Ein Mitarbeiter sagt: "Also normalerweise kostet das Sofa 3.000 \u20ac, aber ich kann Ihnen vielleicht 10% geben, wenn Sie heute unterschreiben. Vielleicht geht auch noch mehr, ich müsste fragen."'
+  },
+  q: {
+    en: 'Which mistakes do you recognise here? Name as many as you can.',
+    de: 'Welche Fehler erkennst du hier? Nenne so viele wie du kannst.'
+  },
+  hints: {
+    en: ['Think about: mindset, language, framing, the golden rule from the training.'],
+    de: ['Denke an: Mindset, Sprache, Rahmung, die goldene Regel aus dem Training.']
+  },
+  idealPoints: {
+    en: [
+      '"Maybe" sounds uncertain \u2014 signals a lack of conviction',
+      'The discount appears negotiable ("maybe even more")',
+      'Invites the customer to renegotiate upward',
+      'Weakens the premium value of the sofa',
+      'Frames the discount as a price reduction rather than a decision support tool',
+      'Sounds like pressure or a last resort',
+      'Violates the golden rule: "If you downplay yourself when making an offer, you diminish its value"',
+      '10% is 10% \u2014 not 12, not 15'
+    ],
+    de: [
+      '"Vielleicht" klingt unsicher \u2014 signalisiert fehlende Überzeugung',
+      'Der Vorteil wirkt verhandelbar ("vielleicht geht auch noch mehr")',
+      'Ladt den Kunden zum Nachverhandeln nach oben ein',
+      'Schwächt den Premium-Wert des Sofas',
+      'Rahmt den Vorteil als Preisnachlass statt als Entscheidungshilfe',
+      'Klingt wie Druck oder Notlösung',
+      'Verletzt die goldene Regel: "Wenn du dich beim Anbieten verkleinerst, verkleinerst du den Wert"',
+      '10% sind 10% \u2014 nicht 12, nicht 15'
+    ]
+  }
+},
+
+// Q16 — Single Choice (after the yes)
+{
+  sec: null,
+  type: 'mc',
+  scenario: {
+    en: 'After your phrase the customer says: "Yes, that sounds good. Let\'s do it."',
+    de: 'Nach deiner Formulierung sagt der Kunde: "Ja, das klingt gut. Dann machen wir das so."'
+  },
+  q: {
+    en: 'What is the best next step?',
+    de: 'Was ist jetzt der beste nächste Schritt?'
+  },
+  opts: {
+    en: [
+      'Move back into relaxed small talk so no pressure builds.',
+      'Show a few more sofa models to make sure they have seen everything.',
+      'Move straight to the next concrete step \u2014 contract, order or final details.',
+      'Ask the customer whether they might still want to sleep on it.'
+    ],
+    de: [
+      'Zurück in lockeren Smalltalk gehen, damit kein Druck entsteht.',
+      'Noch weitere Sofamodelle zeigen, damit sie alles gesehen haben.',
+      'Direkt zum nächsten konkreten Abschlussschritt führen \u2014 Vertrag, Bestellung oder finale Daten.',
+      'Den Kunden fragen, ob er vielleicht trotzdem noch eine Nacht darüber schlafen möchte.'
+    ]
+  },
+  correct: 2,
+  fb: {
+    en: '<strong>Correct: C.</strong> The training is clear: after the "yes" move straight to the next concrete step. Do not go back to small talk or show more products. The moment is won \u2014 protect it. Going back creates doubt. A simple "Let\'s get this sorted for you" leads directly to the contract.',
+    de: '<strong>Richtig: C.</strong> Das Training ist klar: Nach dem "Ja" direkt zum nächsten konkreten Schritt. Nicht zurück in Smalltalk oder weitere Produkte zeigen. Der Moment ist gewonnen \u2014 schütze ihn. Zurück gehen erzeugt Zweifel. Ein einfaches "Lass uns das für euch fertigmachen" führt direkt zum Vertrag.'
+  },
+  fb_wrong: {
+    en: 'The training has a clear rule for this exact moment: the decision is made. What does that mean for your next action?',
+    de: 'Das Training hat für genau diesen Moment eine klären Regel: Die Entscheidung ist getroffen. Was bedeutet das für deinen nächsten Schritt?'
+  }
+}
+
+]; // end QUESTIONS
+
+// ════════════════════════════════════════════════
+// STATE
+// ════════════════════════════════════════════════
+let userName='', userLoc='', currentQ=0, answers=[], startTime=null;
+
+// ════════════════════════════════════════════════
+// START
+// ════════════════════════════════════════════════
+function startQuiz() {
+  const nameEl = document.getElementById('f-name');
+  const locEl  = document.getElementById('f-loc');
+  userName = nameEl.value.trim();
+  userLoc  = locEl.value.trim();
+  if (!userName) { nameEl.classList.add('err'); nameEl.focus(); return; }
+  nameEl.classList.remove('err');
+
+  // Admin check — uses SHA-256 hash so admin name is never visible in plain source code
+  checkAdminHash(userName.toLowerCase()).then(function(isAdmin) {
+    if (isAdmin) {
+      renderAdmin();
+      showScreen('s-admin');
+      return;
+    }
+
+    // Demo mode (name: test)
+    isDemoMode = (userName.toLowerCase() === 'test');
+
+    // Block retake
+    const existing = isDemoMode ? [] : loadResults().filter(r => r.name.toLowerCase() === userName.toLowerCase());
+    if (existing.length > 0) {
+      const prev = existing[existing.length-1];
+      showAlreadyDone(prev);
+      return;
+    }
+
+    currentQ  = 0;
+    answers   = new Array(QUESTIONS.length).fill(null);
+    startTime = Date.now();
+    showScreen('s-quiz');
+    const qtUser = document.getElementById('qt-user');
+    if (qtUser) qtUser.textContent = userName + (userLoc ? ' · ' + userLoc : '') + (isDemoMode ? ' · DEMO' : '');
+    renderQ();
+  });
+}
+
+// SHA-256 hash — admin name never appears in plain text in the source
+async function checkAdminHash(name) {
+  try {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(name));
+    const hex = Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+    // Hash of the admin name — not the name itself
+    return hex === '34550715062af006ac4fab288de67ecb44793c3a05c475227241535f6ef7a81b';
+  } catch(e) { return false; }
+}
+
+function showAlreadyDone(prev) {
+  // Reuse results screen to show previous result
+  const pct = prev.score;
+  const ring = document.getElementById('sc-ring');
+  ring.className = 'score-circle ' + (pct>=80?'pass':pct>=60?'ok':'fail');
+  document.getElementById('sc-pct').textContent = pct+'%';
+  document.getElementById('ru').textContent = prev.name + (prev.location?' · '+prev.location:'');
+  document.getElementById('s-correct').textContent = prev.correct||0;
+  document.getElementById('s-wrong').textContent   = (prev.graded||0)-(prev.correct||0);
+  document.getElementById('s-open').textContent    = prev.open||0;
+  document.getElementById('s-time').textContent    = prev.time||'—';
+  document.getElementById('s-cl').textContent = t('correct');
+  document.getElementById('s-wl').textContent = t('incorrect');
+  document.getElementById('s-ol').textContent = t('openAns');
+  document.getElementById('s-tl').textContent = t('time');
+  document.getElementById('rl-label').textContent = t('review');
+  document.getElementById('rt').textContent = lang==='de' ? 'Bereits abgeschlossen' : 'Already completed';
+  if (pct>=80) { document.getElementById('r-title').textContent=t('passTitle'); document.getElementById('r-sub').textContent=t('passSub'); }
+  else if (pct>=60) { document.getElementById('r-title').textContent=t('okTitle'); document.getElementById('r-sub').textContent=t('okSub'); }
+  else { document.getElementById('r-title').textContent=t('failTitle'); document.getElementById('r-sub').textContent=t('failSub'); }
+  // Add note about already done
+  const note = lang==='de'
+    ? 'Du hast dieses Quiz bereits abgeschlossen. Deine Ergebnisse wurden gespeichert.'
+    : 'You have already completed this quiz. Your results have been saved.';
+  document.getElementById('r-sub').textContent = note;
+  // Hide retake button
+  const retBtn = document.getElementById('ret-btn');
+  if (retBtn) retBtn.style.display='none';
+  // Build review
+  let revHtml = (prev.answers||[]).map((a,i)=>{
+    if (!a) return '';
+    const q = QUESTIONS[i];
+    let icon, badge, badgeCls;
+    if (a.type==='open') { icon='💬'; badge=t('openLbl'); badgeCls='open-lbl'; }
+    else if (a.correct)  { icon='✅'; badge=t('correct');   badgeCls='ok'; }
+    else                 { icon='❌'; badge=t('incorrect');  badgeCls='bad'; }
+    const qText = (a.q||'').substring(0,100);
+    let extra = '';
+    if (a.type==='open'&&a.text) extra=`<div style="font-size:12px;color:var(--mid);margin-top:4px;font-style:italic">${a.text.substring(0,150)}</div>`;
+    if (!a.correct && a.correctOpt) extra+=`<div style="font-size:12px;color:var(--green);margin-top:3px">✓ ${a.correctOpt}</div>`;
+    return `<div class="rev-row"><div class="rev-icon">${icon}</div><div class="rev-q"><strong>Q${i+1}.</strong> ${qText}${extra}</div><div class="rev-badge ${badgeCls}">${badge}</div></div>`;
+  }).join('');
+  document.getElementById('review-list').innerHTML = revHtml;
+  const expBtnEl = document.getElementById('exp-btn');
+  if (expBtnEl) expBtnEl.textContent = t('expBtn');
+  const epTitle = document.getElementById('ep-title');
+  const epSub   = document.getElementById('ep-sub');
+  const expHint = document.getElementById('exp-hint');
+  const expBtn2 = document.getElementById('exp-btn2');
+  if (epTitle) epTitle.textContent = lang==='de' ? 'Ergebnisse herunterladen' : 'Download your results';
+  if (epSub)   epSub.textContent   = lang==='de' ? 'Als HTML-Datei speichern und als PDF drucken oder senden.' : 'Save as PDF and send to your manager.';
+  if (expHint) expHint.textContent = lang==='de' ? 'Öffnet direkt in Excel oder Numbers' : 'Cleanly formatted · ready to send';
+  if (expBtn2) expBtn2.textContent = lang==='de' ? 'Ergebnisse als Excel herunterladen' : 'Download My Results as Excel';
+  showScreen('s-results');
+}
+
+// ════════════════════════════════════════════════
+// RENDER QUESTION
+// ════════════════════════════════════════════════
+function renderQ() {
+  const q   = QUESTIONS[currentQ];
+  const pct = Math.round((currentQ / QUESTIONS.length) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('qt-count').textContent  = currentQ + ' / ' + QUESTIONS.length;
+  document.getElementById('next-btn').disabled     = true;
+  document.getElementById('next-lbl').textContent  = currentQ === QUESTIONS.length-1 ? t('submit') : t('next');
+
+  let html = '';
+
+  // Section header
+  if (q.sec) {
+    html += `<div class="sec-header">
+      <div class="sec-num">0${q.secN}</div>
+      <div class="sec-info">
+        <div class="sec-tag">Section ${q.secN} / 6</div>
+        <div class="sec-title">${q.sec[lang]}</div>
+      </div>
+    </div>`;
+  }
+
+  // Scenario
+  if (q.scenario && q.scenario[lang]) {
+    html += `<div class="scenario">${q.scenario[lang]}</div>`;
+  }
+
+  // Type badge
+  const badges = {
+    mc:       ['badge-mc',       'Multiple Choice'],
+    multi:    ['badge-mc',       lang==='de'?'Mehrfachauswahl':'Multiple Choice (select all)'],
+    tf:       ['badge-tf',       'True / False'],
+    open:     ['badge-open',     lang==='de'?'Offene Frage':'Open Question'],
+    order:    ['badge-order',    lang==='de'?'Reihenfolge':'Ordering'],
+    match:    ['badge-match',    lang==='de'?'Zuordnung':'Matching'],
+  };
+  const [bCls, bLbl] = badges[q.type] || ['badge-mc','Question'];
+
+  html += `<div class="q-card" id="qcard">
+    <div class="q-type-badge ${bCls}">${bLbl}</div>
+    <div class="q-text">${q.q[lang]}</div>`;
+
+  // --- MC ---
+  if (q.type === 'mc') {
+    html += '<div class="opts">';
+    const letters = ['A','B','C','D'];
+    (q.opts[lang]||[]).forEach((opt,i)=>{
+      html += `<button class="opt" id="opt${i}" onclick="pickMC(${i})">
+        <div class="opt-circle">${letters[i]}</div>
+        <div class="opt-text">${opt}</div>
+      </button>`;
+    });
+    html += '</div>';
+    html += `<div class="feedback fok" id="fb-ok">${q.fb[lang]}</div>`;
+    html += `<div class="feedback fbad" id="fb-bad"><strong>${lang==='de'?'Nicht ganz.':'Not quite.'}</strong> ${q.fb_wrong[lang]}</div>`;
+  }
+
+  // --- TF ---
+  if (q.type === 'tf') {
+    html += `<div class="tf-row">
+      <button class="tf-btn" id="tf-true" onclick="pickTF(true)">✓ ${lang==='de'?'Wahr':'True'}</button>
+      <button class="tf-btn" id="tf-false" onclick="pickTF(false)">✗ ${lang==='de'?'Falsch':'False'}</button>
+    </div>`;
+    html += `<div class="feedback fok" id="fb-ok">${q.fb[lang]}</div>`;
+    html += `<div class="feedback fbad" id="fb-bad"><strong>${lang==='de'?'Nicht ganz.':'Not quite.'}</strong> ${q.fb_wrong[lang]}</div>`;
+  }
+
+  // --- MULTI (multiple choice, select all that apply) ---
+  if (q.type === 'multi') {
+    html += '<div class="opts" id="multi-opts">';
+    const letters = ['A','B','C','D','E','F'];
+    (q.opts[lang]||[]).forEach((opt,i)=>{
+      html += `<button class="opt" id="mopt${i}" onclick="toggleMulti(${i})">
+        <div class="opt-circle">${letters[i]}</div>
+        <div class="opt-text">${opt}</div>
+      </button>`;
+    });
+    html += '</div>';
+    html += `<button class="multi-submit" onclick="submitMulti()">${lang==='de'?'Auswahl prüfen':'Check selection'}</button>`;
+    html += `<div class="feedback fok" id="fb-ok">${q.fb[lang]}</div>`;
+    html += `<div class="feedback fbad" id="fb-bad"><strong>${lang==='de'?'Nicht ganz.':'Not quite.'}</strong> ${(q.fb||{}).wrong||''}</div>`;
+  }
+
+  // --- MATCH ---
+  if (q.type === 'match') {
+    const labels = q.matchLabels[lang];
+    const items  = q.matchItems[lang];
+    const opts   = labels.map(l=>l.split(' = ')[0]);
+    html += '<div id="match-wrap">';
+    items.forEach((item,i)=>{
+      html += `<div class="match-row">
+        <div class="match-stmt">${item}</div>
+        <select class="match-sel" id="ms${i}">
+          <option value="">—</option>
+          ${opts.map(o=>`<option value="${o}">${o}</option>`).join('')}
+        </select>
+      </div>`;
+    });
+    html += '</div>';
+    html += `<div style="margin-top:4px;font-size:11px;color:var(--mid)">${labels.join(' &nbsp;|&nbsp; ')}</div>`;
+    html += `<button class="match-submit" onclick="checkMatch()">${lang==='de'?'Zuordnung prüfen':'Check matching'}</button>`;
+    html += `<div class="feedback fok" id="fb-ok">${q.fb[lang]}</div>`;
+    html += `<div class="feedback fbad" id="fb-bad"></div>`;
+  }
+
+    // --- OPEN ---
+  if (q.type === 'open') {
+    html += `<textarea class="open-area" id="open-text" placeholder="${lang==='de'?'Deine Antwort...':'Your answer...'}" oninput="checkOpen()"></textarea>`;
+    if (q.hints && q.hints[lang]) {
+      html += `<ul class="open-hints">${q.hints[lang].map(h=>`<li>${h}</li>`).join('')}</ul>`;
+    }
+    html += `<button class="open-submit" id="open-sub" onclick="submitOpen()" disabled>${t('submitOpen')}</button>`;
+    html += `<div class="open-submitted" id="open-done">✓ ${lang==='de'?'Antwort gespeichert — weiter wenn bereit.':'Answer saved — continue when ready.'}</div>`;
+    if (q.idealPoints && q.idealPoints[lang]) {
+      html += `<div class="feedback fok" id="fb-ok" style="margin-top:12px"><strong>${lang==='de'?'Wichtige Punkte:':'Key points:'}</strong><ul style="margin-left:18px;margin-top:6px">${q.idealPoints[lang].map(p=>`<li>${p}</li>`).join('')}</ul></div>`;
+    }
+  }
+
+  // --- ORDER ---
+  if (q.type === 'order') {
+    const items = q.items[lang];
+    const dragInstr = lang==='de'
+      ? '<div style="font-size:12px;color:var(--mid);margin-bottom:12px;padding:8px 12px;background:var(--cream);border-radius:var(--r);border-left:3px solid var(--gold)">⣿ Ziehe die Felder mit der Maus in die richtige Reihenfolge, dann klicke \"Reihenfolge prüfen\".</div>'
+      : '<div style="font-size:12px;color:var(--mid);margin-bottom:12px;padding:8px 12px;background:var(--cream);border-radius:var(--r);border-left:3px solid var(--gold)">⣿ Drag the items into the correct order using your mouse, then click \"Check order\".</div>';
+    html += dragInstr;
+    // Shuffle for display
+    const shuffled = items.map((txt,origI)=>({txt,origI})).sort(()=>Math.random()-.5);
+    html += `<div class="sort-list" id="sort-list">`;
+    shuffled.forEach((item,dispI)=>{
+      html += `<div class="sort-item" id="sort-${dispI}" draggable="true" data-orig="${item.origI}" ondragstart="dragStart(event)" ondragover="dragOver(event)" ondrop="dropItem(event)" ondragend="dragEnd()">
+        <div class="sort-handle">⣿</div>
+        <div class="sort-num">${dispI+1}</div>
+        <div class="sort-text">${item.txt}</div>
+      </div>`;
+    });
+    html += '</div>';
+    html += `<button class="sort-submit" onclick="checkOrder()">${t('submitOrder')}</button>`;
+    html += `<div class="sort-result correct-r" id="sort-ok">${q.fb[lang]}</div>`;
+    html += `<div class="sort-result wrong-r" id="sort-bad"></div>`;
+  }
+
+  html += '</div>'; // close q-card
+
+  const main = document.getElementById('quiz-main');
+  main.innerHTML = html;
+  main.scrollTop = 0;
+
+  // Open: restore saved answer if any
+  if (q.type === 'open' && answers[currentQ]) {
+    const ta = document.getElementById('open-text');
+    if (ta) ta.value = answers[currentQ].text || '';
+    document.getElementById('open-done').style.display = 'block';
+    document.getElementById('open-sub').style.display = 'none';
+    document.getElementById('next-btn').disabled = false;
+    const fbOk = document.getElementById('fb-ok');
+    if (fbOk) fbOk.classList.add('show');
+  }
+}
+
+// ════════════════════════════════════════════════
+// INTERACTION HANDLERS
+// ════════════════════════════════════════════════
+function pickMC(i) {
+  const q = QUESTIONS[currentQ];
+  const opts = document.querySelectorAll('.opt');
+  opts.forEach(o=>o.classList.add('locked'));
+  const isOk = i === q.correct;
+  opts[i].classList.add(isOk ? 'correct' : 'wrong');
+  if (!isOk) opts[q.correct].classList.add('correct');
+  opts.forEach((o,j)=>{ if(j!==i && j!==q.correct) o.classList.add('dim'); });
+  document.getElementById(isOk?'fb-ok':'fb-bad').classList.add('show');
+  answers[currentQ] = { type:'mc', selected:i, correct: isOk };
+  document.getElementById('next-btn').disabled = false;
+}
+
+function pickTF(val) {
+  const q = QUESTIONS[currentQ];
+  const isOk = val === q.correct;
+  const trueBtn  = document.getElementById('tf-true');
+  const falseBtn = document.getElementById('tf-false');
+  [trueBtn,falseBtn].forEach(b=>b.classList.add('locked'));
+  if (val===true)  trueBtn.classList.add(isOk?'tf-correct':'tf-wrong');
+  if (val===false) falseBtn.classList.add(isOk?'tf-correct':'tf-wrong');
+  // Show correct state on opposite
+  if (!isOk) {
+    (q.correct===true ? trueBtn : falseBtn).classList.add('tf-correct');
+  }
+  document.getElementById(isOk?'fb-ok':'fb-bad').classList.add('show');
+  answers[currentQ] = { type:'tf', selected:val, correct: isOk };
+  document.getElementById('next-btn').disabled = false;
+}
+
+function checkOpen() {
+  const ta  = document.getElementById('open-text');
+  const sub = document.getElementById('open-sub');
+  if (sub) sub.disabled = !ta || ta.value.trim().length < 15;
+}
+
+function submitOpen() {
+  const ta   = document.getElementById('open-text');
+  const text = ta ? ta.value.trim() : '';
+  if (!text || text.length < 15) return;
+  document.getElementById('open-sub').style.display  = 'none';
+  document.getElementById('open-done').style.display = 'block';
+  const fbOk = document.getElementById('fb-ok');
+  if (fbOk) fbOk.classList.add('show');
+  answers[currentQ] = { type:'open', text: text, correct: null };
+  document.getElementById('next-btn').disabled = false;
+}
+
+// ════════════════════════════════════════════════
+// MULTI-SELECT
+// ════════════════════════════════════════════════
+let multiSelected = new Set();
+function toggleMulti(i) {
+  if (document.querySelector(`#mopt${i}`).classList.contains('locked')) return;
+  const btn = document.getElementById('mopt'+i);
+  if (multiSelected.has(i)) { multiSelected.delete(i); btn.classList.remove('multi-sel'); }
+  else { multiSelected.add(i); btn.classList.add('multi-sel'); }
+}
+function submitMulti() {
+  const q = QUESTIONS[currentQ];
+  const correct = new Set(q.correctMulti||[]);
+  const opts = document.querySelectorAll('#multi-opts .opt');
+  opts.forEach(o=>o.classList.add('locked'));
+  let allCorrect = multiSelected.size === correct.size && [...multiSelected].every(i=>correct.has(i));
+  // Mark all correct ones green, wrong selections red, missed correct ones with border
+  opts.forEach((o,i)=>{
+    const wasSelected = multiSelected.has(i);
+    const isCorrect   = correct.has(i);
+    if (wasSelected && isCorrect)   o.classList.add('correct');          // selected & right
+    else if (wasSelected && !isCorrect) o.classList.add('wrong');        // selected & wrong
+    else if (!wasSelected && isCorrect) {                                  // missed correct
+      o.style.border = '2px dashed var(--green)';
+      o.style.opacity = '0.85';
+      const circle = o.querySelector('.opt-circle');
+      if (circle) { circle.style.borderColor='var(--green)'; circle.style.color='var(--green)'; circle.textContent='!'; }
+    } else { o.classList.add('dim'); }
+  });
+  // Add legend
+  const legend = document.createElement('div');
+  legend.style.cssText = 'margin-top:10px;font-size:11px;color:var(--mid);display:flex;gap:12px;flex-wrap:wrap';
+  legend.innerHTML = '<span style="color:var(--green)">■ Correct &amp; selected</span>'
+    + '<span style="color:var(--rust)">■ Wrong selection</span>'
+    + '<span style="color:var(--green)">□ Correct but missed</span>';
+  document.getElementById('multi-opts').after(legend);
+  document.getElementById(allCorrect?'fb-ok':'fb-bad').classList.add('show');
+  answers[currentQ] = { type:'multi', selected:[...multiSelected], correct: allCorrect };
+  document.getElementById('next-btn').disabled = false;
+  multiSelected = new Set();
+}
+
+// ════════════════════════════════════════════════
+// MATCH
+// ════════════════════════════════════════════════
+function checkMatch() {
+  const q = QUESTIONS[currentQ];
+  const answers_arr = q.matchAnswers;
+  let allOk = true;
+  answers_arr.forEach((ans,i)=>{
+    const sel = document.getElementById('ms'+i);
+    if (!sel) return;
+    const val = sel.value;
+    const ok = val === ans;
+    if (!ok) allOk = false;
+    sel.classList.add(ok ? 'correct-m' : 'wrong-m');
+    sel.disabled = true;
+  });
+  document.getElementById(allOk?'fb-ok':'fb-bad').classList.add('show');
+  if (!allOk) {
+    const bad = document.getElementById('fb-bad');
+    if (bad) bad.innerHTML = `<strong>${lang==='de'?'Nicht ganz.':'Not quite.'}</strong> ${lang==='de'?'Richtige Zuordnung:':'Correct assignment:'} ` + (q.matchItems[lang]||[]).map((item,i)=>`<br>${item.substring(0,40)}… → ${q.matchAnswers[i]}`).join('');
+    bad.classList.add('show');
+  }
+  answers[currentQ] = { type:'match', correct: allOk };
+  document.getElementById('next-btn').disabled = false;
+}
+
+// Drag & Drop for ordering
+let dragIdx = null;
+function dragStart(e){ dragIdx=+e.currentTarget.id.split('-')[1]; e.currentTarget.classList.add('dragging'); }
+function dragOver(e){ e.preventDefault(); const t=e.currentTarget; if(t.classList.contains('sort-item')) t.classList.add('over'); }
+function dragEnd(){ document.querySelectorAll('.sort-item').forEach(i=>i.classList.remove('dragging','over')); }
+function dropItem(e){
+  e.preventDefault();
+  const list = document.getElementById('sort-list');
+  const items = [...list.children];
+  const targetIdx = +e.currentTarget.id.split('-')[1];
+  if(dragIdx===null||dragIdx===targetIdx) return;
+  const drag = list.querySelector('#sort-'+dragIdx);
+  const target = list.querySelector('#sort-'+targetIdx);
+  if(dragIdx < targetIdx) list.insertBefore(drag, target.nextSibling);
+  else list.insertBefore(drag, target);
+  // Re-number
+  [...list.children].forEach((item,i)=>{
+    item.id = 'sort-'+i;
+    item.querySelector('.sort-num').textContent = i+1;
+  });
+  dragIdx = null;
+  e.currentTarget.classList.remove('over');
+}
+
+function checkOrder() {
+  const q    = QUESTIONS[currentQ];
+  const list = document.getElementById('sort-list');
+  const items = [...list.querySelectorAll('.sort-item')];
+  const currentOrder = items.map(i=>+i.dataset.orig);
+  const correctOrder = q.correctOrder;
+  const isOk = JSON.stringify(currentOrder) === JSON.stringify(correctOrder);
+  const okEl  = document.getElementById('sort-ok');
+  const badEl = document.getElementById('sort-bad');
+  if (isOk) {
+    okEl.style.display = 'block';
+    badEl.style.display = 'none';
+  } else {
+    badEl.style.display = 'block';
+    badEl.textContent = lang==='de'
+      ? 'Reihenfolge nicht ganz richtig. Die korrekte Reihenfolge: Empfangen → Verstehen → Konfigurieren → Abschließen.'
+      : 'Order not quite right. Correct order: Welcome → Understand → Configure → Close.';
+    okEl.style.display = 'block';
+  }
+  answers[currentQ] = { type:'order', order:currentOrder, correct: isOk };
+  document.getElementById('next-btn').disabled = false;
+}
+
+// ════════════════════════════════════════════════
+// NEXT QUESTION
+// ════════════════════════════════════════════════
+function nextQ() {
+  if (answers[currentQ] === null) return;
+  currentQ++;
+  if (currentQ >= QUESTIONS.length) {
+    showResults();
+  } else {
+    renderQ();
+  }
+}
+
+// ════════════════════════════════════════════════
+// RESULTS
+// ════════════════════════════════════════════════
+function showResults() {
+  const elapsed = Math.round((Date.now()-startTime)/1000);
+  const mins = Math.floor(elapsed/60), secs = elapsed%60;
+  const timeStr = mins>0 ? mins+'m '+secs+'s' : secs+'s';
+
+  let numCorrect=0, numGraded=0, numOpen=0;
+  QUESTIONS.forEach((q,i)=>{
+    const a = answers[i];
+    if (!a) return;
+    if (a.type==='open') numOpen++;
+    else { numGraded++; if(a.correct) numCorrect++; }
+  });
+  const pct = numGraded>0 ? Math.round(numCorrect/numGraded*100) : 0;
+
+  // Score ring
+  const ring = document.getElementById('sc-ring');
+  if (ring) ring.className = 'score-circle '+(pct>=80?'pass':pct>=60?'ok':'fail');
+  document.getElementById('sc-pct').textContent = pct+'%';
+
+  // All text elements — null-safe
+  const setT = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v; };
+  setT('ru',       userName+(userLoc?' · '+userLoc:''));
+  setT('s-correct',numCorrect);
+  setT('s-wrong',  numGraded-numCorrect);
+  setT('s-open',   numOpen);
+  setT('s-time',   timeStr);
+  setT('s-cl',     lang==='de'?'Richtig':'Correct');
+  setT('s-wl',     lang==='de'?'Falsch':'Incorrect');
+  setT('s-ol',     lang==='de'?'Offene':'Open');
+  setT('s-tl',     lang==='de'?'Zeit':'Time');
+  setT('rl-label', lang==='de'?'Deine Antworten':'Your Answers');
+  setT('exp-btn',  lang==='de'?'⬇ Ergebnisse herunterladen':'⬇ Download Results');
+  setT('ret-btn',  lang==='de'?'↺ Wiederholen':'↺ Retake');
+  setT('rt',       lang==='de'?'Dein Ergebnis':'Your Results');
+  setT('ep-title', lang==='de'?'Ergebnisse herunterladen':'Download your results');
+  setT('ep-sub',   lang==='de'?'Als PDF-Datei speichern und an deinen Manager senden.':'Save as PDF and send to your manager.');
+  setT('exp-hint', lang==='de'?'Sauber formatiert · sofort versendbar':'Cleanly formatted · ready to send');
+  setT('exp-btn2', lang==='de'?'Ergebnisse herunterladen':'Download My Results');
+
+  let titleKey, subKey;
+  if (pct>=80)      { titleKey='passTitle'; subKey='passSub'; }
+  else if (pct>=60) { titleKey='okTitle';   subKey='okSub'; }
+  else              { titleKey='failTitle';  subKey='failSub'; }
+  setT('r-title', T[lang][titleKey]);
+  setT('r-sub',   T[lang][subKey]);
+
+  // ── Review list ────────────────────────────────────────────────────────────
+  const lbl = { correct: lang==='de'?'Richtig':'Correct',
+                wrong:   lang==='de'?'Falsch':'Wrong',
+                open:    lang==='de'?'Offene Frage':'Open Question',
+                yourAns: lang==='de'?'Deine Antwort':'Your answer',
+                corrAns: lang==='de'?'Richtige Antwort':'Correct answer' };
+
+  let html = '';
+  QUESTIONS.forEach((q,i)=>{
+    const a = answers[i];
+    if (!a) return;
+
+    const isOpen  = a.type==='open';
+    const isRight = !isOpen && a.correct;
+    const isWrong = !isOpen && !a.correct;
+
+    // Left border color
+    const border = isOpen  ? 'border-left:3px solid var(--gold)'
+                 : isRight ? 'border-left:3px solid var(--green)'
+                 :           'border-left:3px solid var(--rust)';
+
+    // Badge
+    const badgeBg  = isOpen  ? 'var(--gold3)'  : isRight ? 'var(--green3)' : 'var(--rust3)';
+    const badgeFg  = isOpen  ? 'var(--amber)'  : isRight ? 'var(--green)'  : 'var(--rust)';
+    const badgeTxt = isOpen  ? lbl.open        : isRight ? '✓ '+lbl.correct : '✗ '+lbl.wrong;
+
+    // Question text — full, no truncation
+    const qFull = q.q[lang];
+
+    // Answer block
+    let answerBlock = '';
+
+    if (isOpen && a.text) {
+      answerBlock = `
+        <div style="margin-top:10px;padding:12px 14px;background:rgba(201,168,92,0.07);
+          border-radius:8px;border-left:3px solid var(--gold)">
+          <div style="font-size:10px;font-weight:700;color:var(--mid);letter-spacing:1.5px;
+            text-transform:uppercase;margin-bottom:6px">${lbl.yourAns}</div>
+          <div style="font-size:14px;color:var(--ink);font-style:italic;
+            line-height:1.65">${a.text}</div>
+        </div>`;
+    }
+
+    if (isWrong) {
+      const corrTxt = a.correctOpt
+        || (q.opts && q.opts[lang] && q.correct!==undefined ? q.opts[lang][q.correct] : '');
+      if (corrTxt) {
+        answerBlock += `
+        <div style="margin-top:8px;padding:10px 14px;background:var(--green3);
+          border-radius:8px;border-left:3px solid var(--green)">
+          <div style="font-size:10px;font-weight:700;color:var(--green);letter-spacing:1.5px;
+            text-transform:uppercase;margin-bottom:5px">${lbl.corrAns}</div>
+          <div style="font-size:13px;color:var(--ink);font-weight:500;line-height:1.55">${corrTxt}</div>
+        </div>`;
+      }
+    }
+
+    html += `
+      <div style="background:var(--white);border:1px solid var(--border);${border};
+        border-radius:10px;padding:18px 20px;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+          <div style="display:flex;align-items:flex-start;gap:12px;flex:1;min-width:0">
+            <div style="font-size:11px;font-weight:700;color:var(--mid);
+              background:var(--cream);padding:4px 8px;border-radius:6px;
+              white-space:nowrap;margin-top:2px;flex-shrink:0">Q${i+1}</div>
+            <div style="flex:1;min-width:0">
+              <div style="font-size:14px;font-weight:500;color:var(--ink);
+                line-height:1.6">${qFull}</div>
+              ${answerBlock}
+            </div>
+          </div>
+          <div style="flex-shrink:0;padding:4px 12px;border-radius:20px;
+            background:${badgeBg};color:${badgeFg};font-size:11px;font-weight:700;
+            white-space:nowrap;align-self:flex-start;margin-top:2px">${badgeTxt}</div>
+        </div>
+      </div>`;
+  });
+  document.getElementById('review-list').innerHTML = html;
+
+  // Save
+  const entry = {
+    id: Date.now(), name: userName, location: userLoc, lang: lang,
+    date: new Date().toISOString(), score: pct,
+    correct: numCorrect, graded: numGraded, open: numOpen, time: timeStr,
+    answers: QUESTIONS.map((q,i)=>{
+      const a=answers[i];
+      return {
+        q: q.q[lang], type: q.type,
+        selected: a ? a.selected : null,
+        text: a ? a.text||null : null,
+        correct: a ? a.correct : null,
+        correctOpt: (q.type==='mc'&&q.opts) ? q.opts[lang][q.correct] : null
+      };
+    })
+  };
+  if (!isDemoMode) saveResult(entry);
+  showScreen('s-results');
+}
+
+// ════════════════════════════════════════════════
+// DOWNLOAD — clean HTML report (prints as PDF)
+// ════════════════════════════════════════════════
+function doExport() {
+  const all  = loadResults();
+  const mine = all.filter(r=>r.name.toLowerCase()===userName.toLowerCase()).pop();
+  if (!mine) { alert(lang==='de'?'Keine Ergebnisse gefunden.':'No results found.'); return; }
+
+  const isDE    = mine.lang==='de';
+  const dateStr = new Date(mine.date).toLocaleString(isDE?'de-DE':'en-GB');
+  const pass    = mine.score>=80;
+  const review  = mine.score>=60 && mine.score<80;
+  const resTxt  = pass    ? (isDE?'BESTANDEN':'PASSED')
+                : review  ? (isDE?'ZUR ÜBERPRÜFUNG':'REVIEW')
+                :            (isDE?'NICHT BESTANDEN':'NOT PASSED');
+  const resBg   = pass?'#d4edda':review?'#fff3cd':'#fde8e8';
+  const resFg   = pass?'#1a5c2a':review?'#7a5500':'#9b1c1c';
+
+  const openCount = (mine.answers||[]).filter(a=>a&&a.type==='open'&&a.text).length;
+
+  const L = {
+    title:     isDE?'LIVOM RETAIL ACADEMY':'LIVOM RETAIL ACADEMY',
+    subtitle:  isDE?'10% Showroom-Vorteil · Quiz-Ergebnisse':'10% Showroom Discount · Quiz Results',
+    name:      isDE?'Name':'Name',
+    showroom:  isDE?'Showroom':'Showroom',
+    lang:      isDE?'Sprache':'Language',
+    date:      isDE?'Datum':'Date',
+    time:      isDE?'Zeit':'Time',
+    score:     isDE?'Score':'Score',
+    result:    isDE?'Ergebnis':'Result',
+    correct:   isDE?'Richtig':'Correct',
+    wrong:     isDE?'Falsch':'Wrong',
+    open:      isDE?'Offene Fragen':'Open questions',
+    answers:   isDE?'Deine Antworten':'Your Answers',
+    qNum:      isDE?'Nr.':'No.',
+    qType:     isDE?'Typ':'Type',
+    qText:     isDE?'Frage':'Question',
+    yourAns:   isDE?'Deine Antwort':'Your Answer',
+    corrAns:   isDE?'Richtige Antwort':'Correct Answer',
+    qResult:   isDE?'Ergebnis':'Result',
+    openAns:   isDE?'Deine Antwort (offene Frage)':'Your answer (open question)',
+    corrLabel: isDE?'✓ Richtig':'✓ Correct',
+    wronLabel: isDE?'✗ Falsch':'✗ Wrong',
+    openLabel: isDE?'Offene Frage':'Open Question',
+    typeLabels:{
+      mc:    isDE?'Einfachauswahl':'Single Choice',
+      tf:    isDE?'Wahr / Falsch':'True / False',
+      open:  isDE?'Offene Frage':'Open Question',
+      multi: isDE?'Mehrfachauswahl':'Multiple Choice',
+      order: isDE?'Reihenfolge':'Sort Order',
+      match: isDE?'Zuordnung':'Matching'
+    }
+  };
+
+  // ── resolve each answer ────────────────────────────────────────────────────
+  function resolveAnswer(a, i) {
+    const q    = QUESTIONS[i];
+    const opts = (q&&q.opts&&(q.opts[mine.lang]||q.opts.en))||[];
+    let your='', corr='', ok=a.correct;
+
+    if (a.type==='open') {
+      your = a.text||(isDE?'(keine Antwort)':'(no answer)');
+      corr = '';
+      ok   = null;
+    } else if (a.type==='mc'||a.type==='tf') {
+      your = (a.selected!==undefined&&a.selected!==null&&opts[a.selected])
+           ? opts[a.selected]
+           : (a.selected===true?(isDE?'Wahr':'True'):a.selected===false?(isDE?'Falsch':'False'):'—');
+      corr = a.correctOpt||(q&&q.correct!==undefined?(opts[q.correct]||''):'');
+    } else if (a.type==='multi') {
+      your = a.correct
+        ?(isDE?'Alle richtigen Optionen ausgewählt':'All correct options selected')
+        :(isDE?'Teilweise falsch':'Partial / incorrect');
+      corr = ((q&&q.correctMulti)||[]).map(ci=>(opts||[])[ci]||'').filter(Boolean).join(', ');
+    } else if (a.type==='order') {
+      your = a.correct?(isDE?'Reihenfolge korrekt':'Correct order'):(isDE?'Reihenfolge falsch':'Wrong order');
+      corr = isDE?'Empfangen → Verstehen → Konfigurieren → Abschließen'
+                 :'Welcome → Understand → Configure → Close';
+    } else if (a.type==='match') {
+      your = a.correct?(isDE?'Alle korrekt zugeordnet':'All matched correctly'):(isDE?'Einige falsch':'Some incorrect');
+      corr = ((q&&q.matchAnswers)||[]).join(', ');
+    }
+    return {your, corr, ok};
+  }
+
+  // ── build answer rows ──────────────────────────────────────────────────────
+  let answerRows = '';
+  (mine.answers||[]).forEach((a,i)=>{
+    if (!a) return;
+    const ref  = resolveAnswer(a, i);
+    const qTxt = (a.q||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    const typ  = L.typeLabels[a.type]||a.type;
+    const isOpen = a.type==='open';
+    const ok  = ref.ok;
+
+    const rowBg  = i%2===0 ? '#ffffff' : '#fafaf8';
+    const ansBg  = isOpen?'#fffbf0': ok?'#eaf7ec':'#fdecea';
+    const ansFg  = isOpen?'#7a5500': ok?'#1a5c2a':'#9b1c1c';
+    const resBg  = isOpen?'#fffbf0': ok?'#eaf7ec':'#fdecea';
+    const resFg  = isOpen?'#7a5500': ok?'#1a5c2a':'#9b1c1c';
+    const resTxt = isOpen?L.openLabel: ok?L.corrLabel:L.wronLabel;
+
+    // For open: show answer spanning full width
+    if (isOpen) {
+      answerRows += `
+        <tr style="background:${rowBg}">
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;text-align:center;
+            font-weight:700;color:#8a8278;font-size:11px;white-space:nowrap">Q${i+1}</td>
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;font-size:11px;
+            color:#8a8278;white-space:nowrap">${typ}</td>
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;font-weight:600;
+            color:#1a1612;font-size:13px">${qTxt}</td>
+          <td colspan="2" style="padding:10px 12px;border:1px solid #e2ddd6;
+            background:${ansBg};color:${ansFg};font-style:italic;font-size:13px">${ref.your.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</td>
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;text-align:center;
+            background:${resBg};color:${resFg};font-weight:700;font-size:12px;
+            white-space:nowrap">${resTxt}</td>
+        </tr>`;
+    } else {
+      answerRows += `
+        <tr style="background:${rowBg}">
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;text-align:center;
+            font-weight:700;color:#8a8278;font-size:11px;white-space:nowrap">Q${i+1}</td>
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;font-size:11px;
+            color:#8a8278;white-space:nowrap">${typ}</td>
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;font-weight:600;
+            color:#1a1612;font-size:13px">${qTxt}</td>
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;
+            background:${ansBg};color:${ansFg};font-size:13px">${ref.your.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</td>
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;
+            background:#eaf7ec;color:#1a5c2a;font-size:12px">${ref.corr.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</td>
+          <td style="padding:10px 12px;border:1px solid #e2ddd6;text-align:center;
+            background:${resBg};color:${resFg};font-weight:700;font-size:12px;
+            white-space:nowrap">${resTxt}</td>
+        </tr>`;
+    }
+  });
+
+  // ── full HTML document ─────────────────────────────────────────────────────
+  const html = `<!DOCTYPE html>
+<html lang="${isDE?'de':'en'}">
+<head>
+<meta charset="UTF-8">
+<title>Livom Quiz – ${mine.name}</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'DM Sans',Arial,sans-serif;font-size:13px;color:#1a1612;background:#fff;padding:40px}
+  .header{border-bottom:3px solid #1a1612;padding-bottom:20px;margin-bottom:28px}
+  .logo{font-size:10px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:#c9a85c;margin-bottom:6px}
+  .title{font-size:24px;font-weight:700;color:#1a1612;margin-bottom:4px}
+  .subtitle{font-size:13px;color:#5a554f}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:28px;border:1px solid #e2ddd6;border-radius:8px;overflow:hidden}
+  .info-row{display:flex;border-bottom:1px solid #e2ddd6}
+  .info-row:last-child{border-bottom:none}
+  .info-label{width:110px;padding:10px 14px;background:#f5f2ed;font-weight:700;color:#5a554f;font-size:12px;flex-shrink:0}
+  .info-value{padding:10px 14px;color:#1a1612;font-size:13px}
+  .result-banner{padding:14px 20px;border-radius:8px;margin-bottom:28px;display:flex;align-items:center;gap:14px;
+    background:${resBg};border:1px solid ${resFg}40}
+  .result-score{font-size:32px;font-weight:700;color:${resFg};font-family:Georgia,serif;flex-shrink:0}
+  .result-detail{flex:1}
+  .result-status{font-size:16px;font-weight:700;color:${resFg}}
+  .result-sub{font-size:12px;color:#5a554f;margin-top:3px}
+  .stat-row{display:flex;gap:12px;margin-bottom:28px}
+  .stat{flex:1;background:#f5f2ed;border-radius:8px;padding:14px;text-align:center;border:1px solid #e2ddd6}
+  .stat-n{font-size:28px;font-weight:700;font-family:Georgia,serif;line-height:1}
+  .stat-l{font-size:10px;color:#8a8278;text-transform:uppercase;letter-spacing:1px;margin-top:4px}
+  .section-title{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+    color:#8a8278;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #e2ddd6}
+  table{width:100%;border-collapse:collapse}
+  th{padding:10px 12px;background:#1a1612;color:#c9a85c;font-weight:700;text-align:left;
+    font-size:11px;letter-spacing:0.5px;border:1px solid #3a3530}
+  .footer{margin-top:32px;padding-top:16px;border-top:1px solid #e2ddd6;
+    font-size:11px;color:#8a8278;display:flex;justify-content:space-between}
+  @media print{
+    body{padding:20px}
+    @page{margin:1.5cm;size:A4}
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">Livom Retail Academy</div>
+  <div class="title">${L.subtitle}</div>
+  <div class="subtitle">${dateStr}</div>
+</div>
+
+<div class="info-grid">
+  <div>
+    <div class="info-row">
+      <div class="info-label">${L.name}</div>
+      <div class="info-value"><strong>${mine.name}</strong></div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">${L.showroom}</div>
+      <div class="info-value">${mine.location||'—'}</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">${L.lang}</div>
+      <div class="info-value">${mine.lang?mine.lang.toUpperCase():'—'}</div>
+    </div>
+  </div>
+  <div>
+    <div class="info-row">
+      <div class="info-label">${L.date}</div>
+      <div class="info-value">${dateStr}</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">${L.time}</div>
+      <div class="info-value">${mine.time||'—'}</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">${L.result}</div>
+      <div class="info-value"><strong style="color:${resFg}">${resTxt}</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="result-banner">
+  <div class="result-score">${mine.score}%</div>
+  <div class="result-detail">
+    <div class="result-status">${resTxt}</div>
+    <div class="result-sub">${mine.correct||0} ${isDE?'von':'of'} ${mine.graded||0} ${isDE?'Fragen richtig beantwortet':'questions answered correctly'} · ${mine.time||'—'}</div>
+  </div>
+</div>
+
+<div class="stat-row">
+  <div class="stat">
+    <div class="stat-n" style="color:#2e7d52">${mine.correct||0}</div>
+    <div class="stat-l">${L.correct}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n" style="color:#b5451b">${(mine.graded||0)-(mine.correct||0)}</div>
+    <div class="stat-l">${L.wrong}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n" style="color:#b07a20">${openCount}</div>
+    <div class="stat-l">${L.open}</div>
+  </div>
+  <div class="stat">
+    <div class="stat-n" style="color:#2b5f8e">${mine.time||'—'}</div>
+    <div class="stat-l">${L.time}</div>
+  </div>
+</div>
+
+<div class="section-title">${L.answers}</div>
+<table>
+  <thead>
+    <tr>
+      <th style="width:36px">${L.qNum}</th>
+      <th style="width:110px">${L.qType}</th>
+      <th>${L.qText}</th>
+      <th style="width:180px">${L.yourAns}</th>
+      <th style="width:180px">${L.corrAns}</th>
+      <th style="width:90px;text-align:center">${L.qResult}</th>
+    </tr>
+  </thead>
+  <tbody>
+    ${answerRows}
+  </tbody>
+</table>
+
+<div class="footer">
+  <span>Livom Retail Academy · 10% Showroom ${isDE?'Vorteil':'Discount'} · ${mine.name}</span>
+  <span>${dateStr}</span>
+</div>
+
+</body>
+</html>`;
+
+  const blob = new Blob([html], {type:'text/html;charset=utf-8'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'Livom_Quiz_'+mine.name.replace(/\s+/g,'_')+'_'+mine.date.slice(0,10)+'.html';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{document.body.removeChild(a);URL.revokeObjectURL(url);},400);
+}
+
+
+function retake() {
+  document.getElementById('export-box').style.display='none';
+  showScreen('s-login');
+}
+
+// ════════════════════════════════════════════════
+// ADMIN DASHBOARD
+// ════════════════════════════════════════════════
+function switchTab(tab) {
+  document.querySelectorAll('.admin-tab').forEach(function(t,i){
+    var tabs=['ranking','participants','questions'];
+    t.classList.toggle('active', tabs[i]===tab);
+  });
+  document.querySelectorAll('.tab-panel').forEach(function(p){p.classList.remove('active');});
+  var panel=document.getElementById('tab-'+tab);
+  if(panel) panel.classList.add('active');
+}
+
+function toggleCard(bodyId,togId) {
+  var body=document.getElementById(bodyId);
+  var tog=document.getElementById(togId);
+  if(!body) return;
+  var open=body.classList.toggle('open');
+  if(tog) tog.style.transform=open?'rotate(180deg)':'rotate(0deg)';
+}
+
+function renderAdmin() {
+  // Show correct banner based on config
+  const isConfigured = GOOGLE_SCRIPT_URL && GOOGLE_SCRIPT_URL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE';
+  const notConfEl = document.getElementById('banner-not-configured');
+  const confEl    = document.getElementById('banner-configured');
+  if (notConfEl) notConfEl.style.display = isConfigured ? 'none' : 'flex';
+  if (confEl)    confEl.style.display    = isConfigured ? 'flex' : 'none';
+
+  const all    = loadResults();
+  const filter = (document.getElementById('filter-sel')||{}).value || 'all';
+  const search = ((document.getElementById('filter-search')||{}).value||'').toLowerCase();
+  const searchR= ((document.getElementById('filter-search-r')||{}).value||'').toLowerCase();
+
+  // ── Stats ──
+  const total = all.length;
+  const avg   = total>0 ? Math.round(all.reduce((s,r)=>s+r.score,0)/total) : 0;
+  const pass  = all.filter(r=>r.score>=80).length;
+  const best  = total>0 ? Math.max(...all.map(r=>r.score)) : 0;
+  const setEl = (id,v)=>{ const el=document.getElementById(id); if(el) el.textContent=v; };
+  setEl('a-total', total);
+  setEl('a-avg',   total>0 ? avg+'%' : '—');
+  setEl('a-pass',  pass);
+  setEl('a-need',  total-pass);
+  setEl('a-best',  total>0 ? best+'%' : '—');
+
+  if (total===0) {
+    ['ranking-list','admin-list','qb-list'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(el) el.innerHTML='<div class="empty-state">No participants yet. Share the quiz with your team.</div>';
+    });
+    return;
+  }
+
+  // ── RANKING TAB ──
+  const rankEl = document.getElementById('ranking-list');
+  if (rankEl) {
+    const sorted = [...all].sort((a,b)=>b.score-a.score || a.name.localeCompare(b.name));
+    const filtered = searchR ? sorted.filter(r=>r.name.toLowerCase().includes(searchR)) : sorted;
+    const medals = ['🥇','🥈','🥉'];
+    const posCls = ['gold-r','silver-r','bronze-r'];
+    rankEl.innerHTML = `<table class="ranking-table">
+      <thead><tr>
+        <th>#</th><th>Name</th><th>Location</th>
+        <th>Score</th><th>Correct / Graded</th><th>Open Q</th><th>Time</th><th>Date</th>
+      </tr></thead><tbody>
+      ${filtered.map(r=>{
+        const rp = sorted.indexOf(r)+1;
+        const bc = r.score>=80?'var(--green)':r.score>=60?'var(--gold)':'var(--rust)';
+        const bg = r.score>=80?'pass':r.score>=60?'ok':'fail';
+        return `<tr>
+          <td><div class="rank-pos ${rp<=3?posCls[rp-1]:''}">${rp<=3?medals[rp-1]:rp}</div></td>
+          <td><div class="rank-name">${r.name}</div><div class="rank-loc">${r.lang?r.lang.toUpperCase():''}</div></td>
+          <td style="font-size:12px;color:var(--mid)">${r.location||'—'}</td>
+          <td>
+            <div class="rank-bar-wrap"><div class="rank-bar" style="width:${r.score}%;background:${bc}"></div></div>
+            <span class="rank-pct" style="color:${bc}">${r.score}%</span>
+          </td>
+          <td style="font-size:13px;text-align:center">${r.correct||0} / ${r.graded||0} <span class="rank-badge ${bg}" style="margin-left:4px">${r.score>=80?'Pass':r.score>=60?'Review':'Retry'}</span></td>
+          <td style="font-size:12px;color:var(--mid);text-align:center">${(r.answers||[]).filter(a=>a&&a.type==='open'&&a.text).length}</td>
+          <td style="font-size:12px;color:var(--mid)">${r.time||'—'}</td>
+          <td style="font-size:11px;color:var(--mid)">${new Date(r.date).toLocaleDateString()}</td>
+        </tr>`;
+      }).join('')}
+      </tbody></table>`;
+  }
+
+  // ── PARTICIPANTS TAB — detailed, clean, readable ──
+  let results = [...all].sort((a,b)=>b.score-a.score);
+  if (filter==='pass') results = results.filter(r=>r.score>=80);
+  if (filter==='fail') results = results.filter(r=>r.score<80);
+  if (search) results = results.filter(r=>r.name.toLowerCase().includes(search));
+
+  const listEl = document.getElementById('admin-list');
+  if (listEl) {
+    listEl.innerHTML = results.map((r,ci)=>{
+      const scoreCls = r.score>=80?'pass':r.score>=60?'ok':'fail';
+      const scoreColor = r.score>=80?'var(--green)':r.score>=60?'var(--amber)':'var(--rust)';
+      const dateStr  = new Date(r.date).toLocaleString();
+      const bodyId   = 'pcb-'+ci;
+      const togId    = 'pct-'+ci;
+
+      // Build answer rows — each question clearly shown
+      const qRows = (r.answers||[]).map((a,i)=>{
+        if (!a) return '';
+        const q    = QUESTIONS[i];
+        const qTxt = (a.q||q&&q.q.en||'').substring(0,80);
+        const typ  = a.type||'';
+        let ansCell='', resultCell='';
+
+        if (typ==='open') {
+          ansCell = `<div style="font-style:italic;color:var(--ink);line-height:1.5">${a.text||'<em style="color:var(--mid)">No answer</em>'}</div>`;
+          resultCell = '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--gold3);color:var(--amber)">Open</span>';
+        } else if (typ==='mc' || typ==='tf') {
+          const selIdx = a.selected;
+          const selTxt = (q&&q.opts&&q.opts.en&&selIdx!==undefined) ? q.opts.en[selIdx] : (a.selected===true?'True':a.selected===false?'False':'—');
+          const corrTxt= a.correctOpt || '';
+          if (a.correct) {
+            ansCell = `<div style="color:var(--green)">${selTxt}</div>`;
+          } else {
+            ansCell = `<div style="color:var(--rust);text-decoration:line-through;font-size:12px">${selTxt}</div>`
+                    + `<div style="color:var(--green);margin-top:3px;font-size:12px">✓ ${corrTxt}</div>`;
+          }
+          resultCell = a.correct
+            ? '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--green3);color:var(--green)">✓ Correct</span>'
+            : '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--rust3);color:var(--rust)">✗ Wrong</span>';
+        } else if (typ==='multi') {
+          ansCell = a.correct
+            ? '<span style="color:var(--green)">All correct selected</span>'
+            : '<span style="color:var(--rust)">Partial / incorrect</span>';
+          resultCell = a.correct
+            ? '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--green3);color:var(--green)">✓</span>'
+            : '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--rust3);color:var(--rust)">✗</span>';
+        } else if (typ==='order') {
+          ansCell = a.correct ? '<span style="color:var(--green)">Correct order</span>' : '<span style="color:var(--rust)">Wrong order</span>';
+          resultCell = a.correct
+            ? '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--green3);color:var(--green)">✓</span>'
+            : '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--rust3);color:var(--rust)">✗</span>';
+        } else if (typ==='match') {
+          ansCell = a.correct ? '<span style="color:var(--green)">All matched correctly</span>' : '<span style="color:var(--rust)">Some incorrect</span>';
+          resultCell = a.correct
+            ? '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--green3);color:var(--green)">✓</span>'
+            : '<span style="font-size:11px;font-weight:600;padding:2px 8px;border-radius:8px;background:var(--rust3);color:var(--rust)">✗</span>';
+        }
+
+        const typLabel = {'mc':'MC','tf':'T/F','open':'Open','multi':'Multi','order':'Order','match':'Match'}[typ]||typ;
+        const rowBg = typ==='open' ? 'background:rgba(201,168,92,0.04)' : a.correct===false ? 'background:rgba(181,69,27,0.03)' : '';
+        return `<tr style="${rowBg}">
+          <td class="pq-num">Q${i+1}</td>
+          <td class="pq-type"><span style="font-size:9px;font-weight:700;padding:2px 6px;border-radius:6px;background:var(--cream);color:var(--mid);letter-spacing:0.5px">${typLabel}</span></td>
+          <td class="pq-q">${qTxt}${(a.q||'').length>80?'…':''}</td>
+          <td class="pq-a">${ansCell}</td>
+          <td class="pq-r">${resultCell}</td>
+        </tr>`;
+      }).join('');
+
+      return `<div class="participant-card">
+        <div class="pc-header" onclick="toggleCard('${bodyId}','${togId}')">
+          <div class="pc-header-left">
+            <div class="pc-score-dot" style="background:${scoreColor}20;color:${scoreColor};border:2px solid ${scoreColor}">${r.score}%</div>
+            <div>
+              <div class="pc-name">${r.name}</div>
+              <div class="pc-meta">${r.location||'—'} &middot; ${dateStr} &middot; ${r.lang?r.lang.toUpperCase():''} &middot; ${r.time||''}</div>
+            </div>
+          </div>
+          <div class="pc-header-right">
+            <div class="pc-score-badge ${scoreCls}">${r.correct||0}/${r.graded||0} correct &middot; ${(r.answers||[]).filter(a=>a&&a.type==='open'&&a.text).length} open</div>
+            <div class="pc-toggle" id="${togId}">▼</div>
+          </div>
+        </div>
+        <div class="pc-body" id="${bodyId}">
+          <table class="pq-table">
+            <thead><tr><th>#</th><th>Type</th><th>Question</th><th>Answer given</th><th>Result</th></tr></thead>
+            <tbody>${qRows}</tbody>
+          </table>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── QUESTIONS TAB — full breakdown ──
+  const qbEl = document.getElementById('qb-list');
+  if (qbEl) {
+    qbEl.innerHTML = QUESTIONS.map((q,i)=>{
+      const typ    = q.type;
+      const isOpen = typ==='open';
+      const graded = all.filter(r=>r.answers&&r.answers[i]&&r.answers[i].type!=='open');
+      const corr   = graded.filter(r=>r.answers[i]&&r.answers[i].correct).length;
+      const wrong  = graded.length - corr;
+      const pct    = graded.length>0 ? Math.round(corr/graded.length*100) : null;
+      const color  = pct===null?'var(--mid)':pct>=70?'var(--green)':pct>=50?'var(--amber)':'var(--rust)';
+      const typLabel={'mc':'MC','tf':'T/F','open':'Open','multi':'Multi','order':'Order','match':'Match'}[typ]||typ;
+
+      // For MC: show answer distribution
+      let distHtml = '';
+      if ((typ==='mc'||typ==='tf') && q.opts && graded.length>0) {
+        const opts = q.opts.en;
+        const counts = opts.map((_,oi)=>graded.filter(r=>r.answers[i]&&r.answers[i].selected===oi).length);
+        distHtml = `<div style="margin-top:10px;display:flex;flex-direction:column;gap:4px">
+          ${opts.map((opt,oi)=>{
+            const cnt   = counts[oi];
+            const opct  = graded.length>0 ? Math.round(cnt/graded.length*100) : 0;
+            const isRight = oi===q.correct;
+            const bc    = isRight?'var(--green)':'var(--rust)';
+            const letters=['A','B','C','D','E'];
+            return `<div style="display:flex;align-items:center;gap:8px;font-size:12px">
+              <span style="width:16px;font-weight:700;color:${isRight?'var(--green)':'var(--mid)'}">${letters[oi]}</span>
+              <div style="flex:1;height:18px;background:var(--cream);border-radius:3px;overflow:hidden;border:1px solid var(--border);position:relative">
+                <div style="height:100%;width:${opct}%;background:${bc}20;transition:width .4s"></div>
+                <span style="position:absolute;left:6px;top:1px;font-size:10px;color:${isRight?'var(--green)':cnt>0?'var(--rust)':'var(--mid)'}">
+                  ${opt.substring(0,55)}${opt.length>55?'…':''}
+                </span>
+              </div>
+              <span style="width:48px;text-align:right;font-weight:600;color:${bc};">${cnt>0?cnt+'x':''} ${opct>0?opct+'%':''}</span>
+              ${isRight?'<span style="font-size:10px;color:var(--green)">✓</span>':''}
+            </div>`;
+          }).join('')}
+        </div>`;
+      }
+
+      // For open: show all written answers
+      if (isOpen && all.length>0) {
+        const openAnswers = all.map(r=>({name:r.name, text:(r.answers[i]&&r.answers[i].text)||''})).filter(x=>x.text);
+        if (openAnswers.length>0) {
+          distHtml = `<div style="margin-top:10px;display:flex;flex-direction:column;gap:6px">
+            ${openAnswers.map(oa=>`<div style="padding:8px 12px;background:var(--cream);border-radius:var(--r);border-left:3px solid var(--gold)">
+              <div style="font-size:10px;font-weight:700;color:var(--mid);margin-bottom:3px">${oa.name}</div>
+              <div style="font-size:13px;color:var(--ink);font-style:italic;line-height:1.5">${oa.text}</div>
+            </div>`).join('')}
+          </div>`;
+        }
+      }
+
+      return `<div class="qb-card" id="qbc-${i}">
+        <div class="qb-card-header" onclick="toggleQb(${i})">
+          <div class="qb-left">
+            <div class="qb-num">Q${i+1}</div>
+            <span class="qb-type-badge">${typLabel}</span>
+            <div class="qb-q">${q.q.en.substring(0,80)}${q.q.en.length>80?'…':''}</div>
+          </div>
+          <div class="qb-right">
+            ${!isOpen ? `<div class="qb-bar-wrap"><div class="qb-bar" style="width:${pct||0}%;background:${color}"></div></div>
+              <span class="qb-pct" style="color:${color}">${pct!==null?pct+'%':'—'}</span>
+              <span class="qb-count">${corr}✓ ${wrong}✗</span>` :
+              `<span style="font-size:11px;color:var(--amber);font-weight:600">${all.filter(r=>r.answers[i]&&r.answers[i].text).length} answers</span>`}
+            <span class="qb-toggle" id="qbt-${i}">▼</span>
+          </div>
+        </div>
+        <div class="qb-detail" id="qbd-${i}">${distHtml}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+function toggleQb(i) {
+  var d=document.getElementById('qbd-'+i), t=document.getElementById('qbt-'+i);
+  if(!d) return;
+  var open=d.classList.toggle('open');
+  if(t) t.style.transform=open?'rotate(180deg)':'rotate(0deg)';
+}
+
+
+function exportExcel() {
+  const all = loadResults();
+  if (all.length===0) { alert('No results to export yet.'); return; }
+
+  const BOM = '\uFEFF';
+  // Two header rows: main + answer context
+  const h1 = ['Rank','Name','Location','Language','Date','Score%','Correct','Graded','Time'];
+  const h2 = ['','','','','','','','',''];
+  QUESTIONS.forEach((q,i)=>{
+    const typ = {'mc':'MC','tf':'TF','open':'OPEN','multi':'MULTI','order':'ORDER','match':'MATCH'}[q.type]||q.type;
+    h1.push('Q'+(i+1)+' ['+typ+']');
+    h2.push(q.q.en.substring(0,60));
+  });
+
+  const sorted = [...all].sort((a,b)=>b.score-a.score);
+  const rows = sorted.map((r,pos)=>{
+    const base = [
+      pos+1, r.name, r.location||'', r.lang?r.lang.toUpperCase():'',
+      new Date(r.date).toLocaleString(),
+      r.score+'%', r.correct||0, r.graded||0, r.time||''
+    ];
+    const ans = QUESTIONS.map((q,i)=>{
+      const a = r.answers&&r.answers[i];
+      if (!a) return '';
+      if (a.type==='open') return a.text||'';
+      if (a.type==='mc'||a.type==='tf') {
+        if (a.correct) {
+          const corrTxt = q.opts&&q.opts.en&&a.selected!==undefined ? q.opts.en[a.selected] : (a.selected===true?'True':'False');
+          return 'CORRECT: '+corrTxt;
+        } else {
+          const selTxt  = q.opts&&q.opts.en&&a.selected!==undefined ? q.opts.en[a.selected] : '';
+          const corrTxt = q.opts&&q.opts.en ? q.opts.en[q.correct] : '';
+          return 'WRONG (selected: '+selTxt+' | correct: '+corrTxt+')';
+        }
+      }
+      if (a.type==='multi') return a.correct ? 'CORRECT (multi)' : 'INCORRECT (multi)';
+      if (a.type==='order') return a.correct ? 'CORRECT order' : 'WRONG order';
+      if (a.type==='match') return a.correct ? 'CORRECT match' : 'WRONG match';
+      return '';
+    });
+    return [...base, ...ans];
+  });
+
+  const esc = cell => {
+    const s = String(cell||'');
+    return (s.includes(',') || s.includes('"') || s.includes('\n') || s.includes('\r'))
+      ? '"'+s.replace(/"/g,'""')+'"' : s;
+  };
+  const csv = BOM + [h1, h2, ...rows].map(row=>row.map(esc).join(',')).join('\n');
+
+  const blob = new Blob([csv],{type:'text/csv;charset=utf-8'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'Livom_Quiz_Results_'+new Date().toISOString().slice(0,10)+'.csv';
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); }, 200);
+}
+
+function exportReport() {
+  const all = loadResults();
+  if (all.length===0) { alert('No results to export yet.'); return; }
+  const avg  = Math.round(all.reduce((s,r)=>s+r.score,0)/all.length);
+  const pass = all.filter(r=>r.score>=80).length;
+  const sorted = [...all].sort((a,b)=>b.score-a.score);
+  var lines = [
+    '══════════════════════════════════════════════════════',
+    'LIVOM · 10% SHOWROOM DISCOUNT · TEAM RESULTS REPORT',
+    'Generated: '+new Date().toLocaleString(),
+    'Participants: '+all.length,
+    '══════════════════════════════════════════════════════',
+    '',
+    'OVERVIEW',
+    '  Average score:  '+avg+'%',
+    '  Passed (≥80%):  '+pass+' / '+all.length,
+    '  Need review:    '+(all.length-pass)+' / '+all.length,
+    '',
+    'RANKING',
+  ];
+  sorted.forEach(function(r,i){
+    var mark = r.score>=80?'✓ PASS':'✗ REVIEW';
+    lines.push('  '+(i+1)+'. '+r.name+' ('+r.location+')'+'  —  '+r.score+'% '+mark);
+  });
+  lines.push('');
+  lines.push('QUESTION BREAKDOWN');
+  QUESTIONS.forEach(function(q,i){
+    var graded=all.filter(function(r){return r.answers&&r.answers[i]&&r.answers[i].type!=='open';});
+    if(graded.length===0){lines.push('  Q'+(i+1)+'. [open] '+q.q.en.substring(0,60)+'…');return;}
+    var corr=graded.filter(function(r){return r.answers[i]&&r.answers[i].correct;}).length;
+    var pct=Math.round(corr/graded.length*100);
+    var bar='█'.repeat(Math.round(pct/10))+'░'.repeat(10-Math.round(pct/10));
+    lines.push('  Q'+(i+1)+'. '+bar+' '+pct+'% — '+q.q.en.substring(0,55)+'…');
+  });
+  lines.push('');
+  lines.push('────────────────────────────────────────────────────────');
+  lines.push('INDIVIDUAL RESULTS');
+  lines.push('────────────────────────────────────────────────────────');
+  sorted.forEach(function(r){
+    var mark=r.score>=80?'✓ PASS':'✗ REVIEW';
+    lines.push('');
+    lines.push(r.name+' | '+(r.location||'—')+' | '+(r.lang||'').toUpperCase()+' | '+new Date(r.date).toLocaleString());
+    lines.push('Score: '+r.score+'% ('+r.correct+'/'+r.graded+') — '+mark+' — Time: '+r.time);
+    var opens=(r.answers||[]).filter(function(a){return a&&a.type==='open'&&a.text;});
+    if(opens.length>0){
+      lines.push('  Open answers:');
+      opens.forEach(function(a){
+        lines.push('    Q: '+(a.q||'').substring(0,65)+'…');
+        lines.push('    A: '+(a.text||''));
+      });
+    }
+    var wrong=(r.answers||[]).filter(function(a){return a&&a.type!=='open'&&a.correct===false;});
+    if(wrong.length>0){
+      lines.push('  Incorrect ('+wrong.length+'):');
+      wrong.forEach(function(a){lines.push('    ✗ '+(a.q||'').substring(0,70)+'…');});
+    }
+  });
+  lines.push('');
+  lines.push('══════════════════════════════════════════════════════');
+  var blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='Livom_Quiz_TeamReport_'+new Date().toISOString().slice(0,10)+'.txt';
+  a.click();
+}
+
+// ════════════════════════════════════════════════
+// SCREEN
+// ════════════════════════════════════════════════
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// Init
+setLang('en');
+</script>
+</body>
+</html>
